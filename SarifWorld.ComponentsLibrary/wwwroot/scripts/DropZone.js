@@ -1,6 +1,6 @@
 ﻿function handleDragEnter (event) {
     preventDefaults(event);
-    highlight(true);
+    highlight(event.currentTarget, true);
 }
 
 function handleDragOver (event) {
@@ -9,7 +9,7 @@ function handleDragOver (event) {
 
 function handleDragLeave (event) {
     preventDefaults(event);
-    highlight(false);
+    highlight(event.currentTarget, false);
 }
 
 function handleDrop (event) {
@@ -23,7 +23,7 @@ function handleDrop (event) {
         const file = filesArray[0];
         file.text().then(text => analyze(count, file.name, text));
     }
-    highlight(false);
+    highlight(event.currentTarget, false);
 }
 
 function preventDefaults (event) {
@@ -31,12 +31,10 @@ function preventDefaults (event) {
     event.stopPropagation();
 }
 
-function highlight (on) {
+function highlight (element, on) {
     if (on) {;
-        let element = document.getElementById('dropZone');
         element.classList.add("drop-area-active");
     } else {
-        let element = document.getElementById('dropZone');
         element.classList.remove("drop-area-active");
     }
 }

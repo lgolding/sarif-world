@@ -1,18 +1,17 @@
-﻿<!-- TODO: As the code stands, we can only have one of these on a page. -->
-
-<div id="dropZone" class="drop-area">
+﻿<div id="@Id"
+     class="drop-area"
+     ondragenter="handleDragEnter(event);"
+     ondragover="handleDragOver(event);"
+     ondragleave="handleDragLeave(event);"
+     ondrop="handleDrop(event)">
     <!--
-        We use nested divs, rather than placing both the drop-zone and drop-zone-label classes
-        on the same div, to achieve vertical centering of the label. drop-zone has "display: table"
-        and drop-zone-label has "display: table-cell", because (1) table-cell is the only display
+        We use nested divs, rather than placing both the drop-area and drop-area-text classes
+        on the same div, to achieve vertical centering of the label. drop-area has "display: table"
+        and drop-area-text has "display: table-cell", because (1) table-cell is the only display
         value that respects the vertical-align property, and (2) table-cell doesn't work unless
         it's inside an element with "display: table".
     -->
-    <div class="drop-area-text drop-area-text-input"
-         ondragenter="handleDragEnter(event);"
-         ondragover="handleDragOver(event);"
-         ondragleave="handleDragLeave(event);"
-         ondrop="handleDrop(event)">
-        @Label
+    <div class="drop-area-text drop-area-text-input">
+         @Label
     </div>
 </div>
