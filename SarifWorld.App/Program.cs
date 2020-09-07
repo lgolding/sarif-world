@@ -1,12 +1,10 @@
 using System;
+using System.Globalization;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 
 namespace SarifWorld.App
 {
@@ -18,8 +16,18 @@ namespace SarifWorld.App
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddLocalization();
 
-            await builder.Build().RunAsync();
+            WebAssemblyHost host = builder.Build();
+
+            var jsInterop = host.Services.GetRequiredService<IJSRuntime>();
+            var language = await jsInterop.InvokeAsync<string>("getLanguage");
+
+            var culture = new CultureInfo(language);
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+            await host.RunAsync();
         }
     }
 }
