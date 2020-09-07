@@ -1,5 +1,10 @@
 ﻿@page "/"
+@inject IStringLocalizer<Index> Loc
 
-<h1>SARIF</h1>
+<div class="page-title" role="heading">
+    @Loc["PageTitle"]
+</div>
 
-The Static Analysis Results Interchange Format (SARIF) is an industry standard format for the output of static analysis tools.
+<section class="content-section">
+    @Loc["Blurb"]
+</section>
