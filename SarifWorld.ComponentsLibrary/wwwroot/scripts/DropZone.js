@@ -34,10 +34,10 @@ function preventDefaults (event) {
 function highlight (on) {
     if (on) {;
         let element = document.getElementById('dropZone');
-        element.classList.add("drop-zone-active");
+        element.classList.add("drop-area-active");
     } else {
         let element = document.getElementById('dropZone');
-        element.classList.remove("drop-zone-active");
+        element.classList.remove("drop-area-active");
     }
 }
 

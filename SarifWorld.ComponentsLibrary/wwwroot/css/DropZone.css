@@ -1,4 +1,4 @@
-﻿.drop-zone {
+﻿.drop-area {
     background-color: #b5b5b5;
     display: table;
     height: 70px;
@@ -10,7 +10,7 @@
     width: 100%;
 }
 
-.drop-zone-label {
+.drop-area-text {
     display: table-cell;
     font-family: var(--content-font-family);
     font-size: 16px;
@@ -19,10 +19,17 @@
     vertical-align: middle;
 }
 
-.drop-zone-text-input {
+.drop-area-text-input {
     color: #333;
 }
+.drop-area-active,
+.drop-area:focus {
+    background-color: #77bafa;
+    color: #000;
+    outline: 2px dashed #000;
+    outline-offset: -10px;
+}
 
-.drop-zone-active .drop-zone-text-input {
+.drop-area-active .drop-area-text-input {
     color: #000;
 }
