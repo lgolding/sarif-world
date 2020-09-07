@@ -120,4 +120,7 @@
   <data name="DropZoneLabel" xml:space="preserve">
     <value>Drop your SARIF file here.</value>
   </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>SARIF Validator</value>
+  </data>
 </root>
