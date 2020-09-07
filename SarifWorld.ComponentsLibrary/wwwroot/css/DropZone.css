@@ -1,6 +1,4 @@
 ﻿.drop-zone {
-    border: 1px solid blue;
-    padding: 10px;
     background-color: #b5b5b5;
     display: table;
     height: 70px;
@@ -19,4 +17,12 @@
     font-weight: bold;
     user-select: none;
     vertical-align: middle;
+}
+
+.drop-zone-text-input {
+    color: #333;
+}
+
+.drop-zone-active .drop-zone-text-input {
+    color: #000;
 }
