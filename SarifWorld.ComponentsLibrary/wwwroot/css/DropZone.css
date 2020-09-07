@@ -1,4 +1,22 @@
 ﻿.drop-zone {
     border: 1px solid blue;
     padding: 10px;
+    background-color: #b5b5b5;
+    display: table;
+    height: 70px;
+    cursor: pointer;
+    outline: 2px dashed #555;
+    outline-offset: -5px;
+    text-align: center;
+    transition: outline-offset .1s ease-in-out, background-color .1s linear;
+    width: 100%;
+}
+
+.drop-zone-label {
+    display: table-cell;
+    font-family: var(--content-font-family);
+    font-size: 16px;
+    font-weight: bold;
+    user-select: none;
+    vertical-align: middle;
 }

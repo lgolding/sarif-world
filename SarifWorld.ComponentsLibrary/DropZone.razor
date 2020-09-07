@@ -1,3 +1,12 @@
-﻿<div class="drop-zone gray-section">
-    @Label
+﻿<div class="drop-zone">
+    <!--
+        We use nested divs, rather than placing both the drop-zone and drop-zone-label classes
+        on the same div, to achieve vertical centering of the label. drop-zone has "display: table
+        and drop-zone-label has "display: table-cell", because (1) table-cell is the only display
+        value that respects the vertical-align property, and (2) table-cell doesn't work unless
+        it's inside an element with "display: table".
+    -->
+    <div class="drop-zone-label">
+        @Label
+    </div>
 </div>
