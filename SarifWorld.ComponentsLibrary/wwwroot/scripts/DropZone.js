@@ -1,4 +1,10 @@
-﻿function handleDragEnter (event) {
+﻿const callbackMap = {};
+
+function setCallbackTarget(id, target) {
+    callbackMap[id] = target;
+}
+
+function handleDragEnter(event) {
     preventDefaults(event);
     highlight(event.currentTarget, true);
 }
@@ -12,16 +18,19 @@ function handleDragLeave (event) {
     highlight(event.currentTarget, false);
 }
 
-function handleDrop (event) {
+function handleDrop(event) {
+    // event.currentTarget is only available while the event is being handled, so it will _not_ be
+    // available when the asynchronous call to callBack is made -- unless we save it here.
+    const targetId = event.currentTarget.id;
     preventDefaults(event);
     const files = event.dataTransfer.files;
     const filesArray = [...files];
     const count = filesArray.length;
     if (filesArray.length == 0) {
-        analyze(0, null, null);
+        callBack(event.currentTarget.id, 0, null, null);
     } else {
         const file = filesArray[0];
-        file.text().then(text => analyze(count, file.name, text));
+        file.text().then(text => callBack(targetId, count, file.name, text));
     }
     highlight(event.currentTarget, false);
 }
@@ -39,6 +48,6 @@ function highlight (element, on) {
     }
 }
 
-analyze = function (count, name, text) {
-    validator.invokeMethodAsync('ValidateDroppedFiles', count, name, text);
+function callBack(targetId, count, name, text) {
+    callbackMap[targetId].invokeMethodAsync('HandleDroppedFiles', count, name, text);
 }
