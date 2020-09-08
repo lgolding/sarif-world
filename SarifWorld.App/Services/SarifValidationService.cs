@@ -7,9 +7,9 @@ using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
 using Newtonsoft.Json;
-using SarifWorld.Models;
+using SarifWorld.App.Models;
 
-namespace SarifWorld.Services
+namespace SarifWorld.App.Services
 {
     public class SarifValidationService : ISarifValidationService
     {

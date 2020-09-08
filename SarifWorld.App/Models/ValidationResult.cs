@@ -3,7 +3,7 @@
 
 using Microsoft.CodeAnalysis.Sarif;
 
-namespace SarifWorld.Models
+namespace SarifWorld.App.Models
 {
     public class ValidationResult
     {

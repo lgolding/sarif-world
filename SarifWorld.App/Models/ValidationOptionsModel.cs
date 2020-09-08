@@ -3,7 +3,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace SarifWorld.Models
+namespace SarifWorld.App.Models
 {
     public class ValidationOptionsModel
     {
