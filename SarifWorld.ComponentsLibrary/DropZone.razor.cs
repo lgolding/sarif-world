@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace SarifWorld.ComponentsLibrary
@@ -23,10 +24,16 @@ namespace SarifWorld.ComponentsLibrary
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
+        [Inject]
+        public IStringLocalizer<DropZone> Localizer { get; set; }
+
+
         private DotNetObjectReference<DropZone> thisReference;
 
         protected override void OnInitialized()
         {
+            JSRuntime.InvokeVoidAsync("setAlertMessages", Localizer["ErrorMultipleFilesDropped"].Value);
+
             this.thisReference = DotNetObjectReference.Create(this);
             JSRuntime.InvokeVoidAsync("setCallbackTarget", this.Id, this.thisReference, AllowMultiple);
         }

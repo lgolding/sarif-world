@@ -1,10 +1,16 @@
 ﻿const callbackMap = {};
 
+let errorMultipleFilesDropped = "";
+
 function setCallbackTarget(id, target, allowMultiple) {
     callbackMap[id] = {
         target: target,
         allowMultiple: allowMultiple
     };
+}
+
+function setAlertMessages(multipleFilesDropped) {
+    errorMultipleFilesDropped = multipleFilesDropped;
 }
 
 function handleDragEnter(event) {
@@ -36,7 +42,7 @@ function handleDrop(event) {
         if (filesArray.length == 1 || callbackMapEntry.allowMultiple) {
             filesArray.forEach(file => file.text().then(text => callBack(target, file.name, text)));
         } else {
-            alert("Please drop only one file at a time.");
+            alert(errorMultipleFilesDropped);
         }
     }
     highlight(event.currentTarget, false);
