@@ -120,6 +120,9 @@
   <data name="DropZoneLabel" xml:space="preserve">
     <value>Drop your SARIF file here.</value>
   </data>
+  <data name="ErrorNotASarifFile" xml:space="preserve">
+    <value>'{0}' is not a SARIF file. Provide a file with extension '.sarif' or '.sarif.json'.</value>
+  </data>
   <data name="PageTitle" xml:space="preserve">
     <value>SARIF Validator</value>
   </data>

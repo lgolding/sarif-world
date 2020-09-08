@@ -3,8 +3,10 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
+using SarifWorld.App.Services;
 
 namespace SarifWorld.App
 {
@@ -16,6 +18,8 @@ namespace SarifWorld.App
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddScoped<ISarifValidationService, SarifValidationService>();
+            builder.Services.AddScoped<IFileSystem, FileSystem>();
             builder.Services.AddLocalization();
 
             WebAssemblyHost host = builder.Build();
