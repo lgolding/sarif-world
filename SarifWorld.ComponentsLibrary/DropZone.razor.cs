@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -16,7 +15,7 @@ namespace SarifWorld.ComponentsLibrary
         public string Id { get; set; } = "dropZone";
 
         [Parameter]
-        public EventCallback<IEnumerable<string>> OnFilesDropped { get; set; }
+        public EventCallback<DroppedFile> OnFileDropped { get; set; }
 
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
@@ -30,9 +29,9 @@ namespace SarifWorld.ComponentsLibrary
         }
 
         [JSInvokable]
-        public void HandleDroppedFiles(int count, string name, string text)
+        public void HandleDroppedFile(string name, string text)
         {
-            OnFilesDropped.InvokeAsync(new List<string> { name });
+            OnFileDropped.InvokeAsync(new DroppedFile(name, text));
         }
 
         public void Dispose()

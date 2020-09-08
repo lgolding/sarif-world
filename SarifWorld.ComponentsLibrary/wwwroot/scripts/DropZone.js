@@ -25,12 +25,10 @@ function handleDrop(event) {
     preventDefaults(event);
     const files = event.dataTransfer.files;
     const filesArray = [...files];
-    const count = filesArray.length;
     if (filesArray.length == 0) {
         callBack(event.currentTarget.id, 0, null, null);
     } else {
-        const file = filesArray[0];
-        file.text().then(text => callBack(targetId, count, file.name, text));
+        filesArray.forEach(file => file.text().then(text => callBack(targetId, file.name, text)));
     }
     highlight(event.currentTarget, false);
 }
@@ -48,6 +46,6 @@ function highlight (element, on) {
     }
 }
 
-function callBack(targetId, count, name, text) {
-    callbackMap[targetId].invokeMethodAsync('HandleDroppedFiles', count, name, text);
+function callBack(targetId, name, text) {
+    callbackMap[targetId].invokeMethodAsync('HandleDroppedFile', name, text);
 }
