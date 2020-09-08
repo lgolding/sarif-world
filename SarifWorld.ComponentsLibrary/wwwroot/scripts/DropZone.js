@@ -1,7 +1,10 @@
 ﻿const callbackMap = {};
 
-function setCallbackTarget(id, target) {
-    callbackMap[id] = target;
+function setCallbackTarget(id, target, allowMultiple) {
+    callbackMap[id] = {
+        target: target,
+        allowMultiple: allowMultiple
+    };
 }
 
 function handleDragEnter(event) {
@@ -21,14 +24,20 @@ function handleDragLeave (event) {
 function handleDrop(event) {
     // event.currentTarget is only available while the event is being handled, so it will _not_ be
     // available when the asynchronous call to callBack is made -- unless we save it here.
-    const targetId = event.currentTarget.id;
+    const callbackMapEntry = callbackMap[event.currentTarget.id];
+    const target = callbackMapEntry.target;
+
     preventDefaults(event);
     const files = event.dataTransfer.files;
     const filesArray = [...files];
     if (filesArray.length == 0) {
-        callBack(event.currentTarget.id, 0, null, null);
+        callBack(target, 0, null, null);
     } else {
-        filesArray.forEach(file => file.text().then(text => callBack(targetId, file.name, text)));
+        if (filesArray.length == 1 || callbackMapEntry.allowMultiple) {
+            filesArray.forEach(file => file.text().then(text => callBack(target, file.name, text)));
+        } else {
+            alert("Please drop only one file at a time.");
+        }
     }
     highlight(event.currentTarget, false);
 }
@@ -46,6 +55,6 @@ function highlight (element, on) {
     }
 }
 
-function callBack(targetId, name, text) {
-    callbackMap[targetId].invokeMethodAsync('HandleDroppedFile', name, text);
+function callBack(target, name, text) {
+    target.invokeMethodAsync('HandleDroppedFile', name, text);
 }

@@ -6,13 +6,16 @@ namespace SarifWorld.ComponentsLibrary
 {
     public partial class DropZone : IDisposable
     {
-        [Parameter]
-        public string Label { get; set; } = string.Empty;
-
         // If you have more than one dropZone on a page, provide each with its own
         // Id parameter.
         [Parameter]
         public string Id { get; set; } = "dropZone";
+
+        [Parameter]
+        public string Label { get; set; } = string.Empty;
+
+        [Parameter]
+        public bool AllowMultiple { get; set; } = true;
 
         [Parameter]
         public EventCallback<DroppedFile> OnFileDropped { get; set; }
@@ -25,7 +28,7 @@ namespace SarifWorld.ComponentsLibrary
         protected override void OnInitialized()
         {
             this.thisReference = DotNetObjectReference.Create(this);
-            JSRuntime.InvokeVoidAsync("setCallbackTarget", this.Id, this.thisReference);
+            JSRuntime.InvokeVoidAsync("setCallbackTarget", this.Id, this.thisReference, AllowMultiple);
         }
 
         [JSInvokable]

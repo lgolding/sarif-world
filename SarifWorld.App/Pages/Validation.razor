@@ -6,7 +6,9 @@
 </div>
 
 <section class="content-section">
-    <DropZone Label="@Loc["DropZoneLabel"]" OnFileDropped="@HandleDroppedFile" />
+    <DropZone Label="@Loc["DropZoneLabel"]"
+              OnFileDropped="@HandleDroppedFile"
+              AllowMultiple="false"/>
     Number of dropped files: @NumFiles<br/>
     Name: @Name<br />
     Head: @Head
