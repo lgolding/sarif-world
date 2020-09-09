@@ -58,7 +58,7 @@ namespace SarifWorld.App.Services
                 {
                     validationResult.ExitCode = validateCommand.Run(validateOptions);
 
-                    validationResult.InputFileContents = this.fileSystem.ReadAllText(inputFilePath);
+                    validationResult.InputFileContents = fileContents;
                     validationResult.ResultFileContents = fileSystem.ReadAllText(outputFilePath);
                     validationResult.ValidationLog = JsonConvert.DeserializeObject<SarifLog>(validationResult.ResultFileContents);
 
