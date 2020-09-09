@@ -7,6 +7,6 @@ namespace SarifWorld.App.Services
 {
     public interface ISarifValidationService
     {
-        ValidationResult ValidateFile(string inputFilePath);
+        ValidationResult ValidateFile(string fileName, string fileContents);
     }
 }

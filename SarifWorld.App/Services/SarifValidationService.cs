@@ -17,7 +17,7 @@ namespace SarifWorld.App.Services
     {
         private const string AppDataDirectory = "App_Data";
         private const string SchemaFileName = "sarif-2.1.0-rtm.5.json";
-        private const string ValidationFileNameMarker = "validation";
+        private const string ValidationFileNameMarker = "-validation";
 
         private readonly string s_schemaFilePath = Path.Combine(AppDataDirectory, SchemaFileName);
 
@@ -30,9 +30,10 @@ namespace SarifWorld.App.Services
             alert = new Alert(jsRuntime);
         }
 
-        public ValidationResult ValidateFile(string inputFilePath)
+        public ValidationResult ValidateFile(string fileName, string fileContents)
         {
-            string outputFilePath = MakeOutputFilePath(inputFilePath);
+            (string inputFilePath, string outputFilePath) = MakeTempFilePaths(fileName);
+            this.fileSystem.WriteAllText(inputFilePath, fileContents);
 
             var validateOptions = new ValidateOptions
             {
@@ -68,16 +69,40 @@ namespace SarifWorld.App.Services
                 alert.Show($"Exception: {ex.Message}");
                 validationResult.ErrorMessage = ex.Message;
             }
+            finally
+            {
+                DeleteTempFile(inputFilePath);
+                DeleteTempFile(outputFilePath);
+            }
 
             return validationResult;
         }
 
-        internal static string MakeOutputFilePath(string inputFilePath)
+        private static (string, string) MakeTempFilePaths(string fileName)
         {
+            string tempDirectory = Path.GetTempPath();
+            string bareFileName = Path.GetFileNameWithoutExtension(fileName);
             string guid = Guid.NewGuid().ToString("D");
-            string fileName = Path.GetFileNameWithoutExtension(inputFilePath);
+            string extension = Path.GetExtension(fileName);
 
-            return Path.Combine(AppDataDirectory, $"{fileName}.{guid}.{ValidationFileNameMarker}{SarifConstants.SarifFileExtension}");
+            string inputFilePath = Path.Combine(tempDirectory, $"{bareFileName}.{guid}{extension}");
+            string outputFilePath = Path.Combine(tempDirectory, $"{bareFileName}.{guid}{ValidationFileNameMarker}{extension}");
+
+            return (inputFilePath, outputFilePath);
+        }
+
+        private void DeleteTempFile(string tempFilePath)
+        {
+            // The SARIF SDK's IFileSystem doesn't implement File.Delete, so call the real API.
+            // But in tests, the file won't actually exist, so ignore exceptions.
+            // https://github.com/microsoft/sarif-sdk/issues/2033
+            try
+            {
+                File.Delete(tempFilePath);
+            }
+            catch
+            {
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -32,7 +30,7 @@ namespace SarifWorld.App.Pages
         {
             if (IsSarifFile(droppedFile.Name))
             {
-                ValidateSarifFile(droppedFile);
+                ValidationResult validationResult = SarifValidationService.ValidateFile(droppedFile.Name, droppedFile.Text);
             }
             else
             {
@@ -40,48 +38,10 @@ namespace SarifWorld.App.Pages
             }
         }
 
-        private void ValidateSarifFile(DroppedFile droppedFile)
+        internal static bool IsSarifFile(string fileName)
         {
-            string tempFilePath = MakeTempFilePath(droppedFile.Name);
-            try
-            {
-                FileSystem.WriteAllText(tempFilePath, droppedFile.Text);
-                ValidationResult validationResult = SarifValidationService.ValidateFile(tempFilePath);
-            }
-            finally
-            {
-                DeleteTempFile(tempFilePath);
-            }
-        }
-
-        private void DeleteTempFile(string tempFilePath)
-        {
-            // The SARIF SDK's IFileSystem doesn't implement File.Delete, so call the real API.
-            // But in tests, the file won't actually exist, so ignore exceptions.
-            // https://github.com/microsoft/sarif-sdk/issues/2033
-            try
-            {
-                File.Delete(tempFilePath);
-            }
-            catch
-            {
-            }
-        }
-
-        private string MakeTempFilePath(string fileName)
-        {
-            string tempDirectory = Path.GetTempPath();
-            string bareFileName = Path.GetFileNameWithoutExtension(fileName);
-            string guid = Guid.NewGuid().ToString("D");
-            string extension = Path.GetExtension(fileName);
-
-            return Path.Combine(tempDirectory, $"{bareFileName}.{guid}{extension}");
-        }
-
-        internal static bool IsSarifFile(string path)
-        {
-            path = path.ToLowerInvariant();
-            return path.EndsWith(SarifConstants.SarifFileExtension) || path.EndsWith(SarifConstants.SarifFileExtension + ".json");
+            fileName = fileName.ToLowerInvariant();
+            return fileName.EndsWith(SarifConstants.SarifFileExtension) || fileName.EndsWith(SarifConstants.SarifFileExtension + ".json");
         }
     }
 }
