@@ -6,7 +6,10 @@
 </div>
 
 <section class="content-section">
-    <DropZone Label="@Localizer["DropZoneLabel"]"
-              OnFileDropped="@ValidateDroppedFile"
-              AllowMultiple="false"/>
+    <DropZone OnFileDropped="@ValidateDroppedFile"
+              AllowMultiple="false"
+              DefaultLabel="@Localizer["DefaultLabel"]"
+              BusyLabel="@Localizer["BusyLabel"]"
+              CompleteLabel="@Localizer["CompleteLabel"]"
+              CompleteLabelDisplayTime="5000" />
 </section>

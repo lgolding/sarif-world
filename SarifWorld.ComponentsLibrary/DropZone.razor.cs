@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -13,7 +14,16 @@ namespace SarifWorld.ComponentsLibrary
         public string Id { get; set; } = "dropZone";
 
         [Parameter]
-        public string Label { get; set; } = string.Empty;
+        public string DefaultLabel { get; set; }
+
+        [Parameter]
+        public string BusyLabel { get; set; }
+
+        [Parameter]
+        public string CompleteLabel { get; set; }
+
+        [Parameter]
+        public int CompleteLabelDisplayTime { get; set; }
 
         [Parameter]
         public bool AllowMultiple { get; set; } = true;
@@ -29,19 +39,36 @@ namespace SarifWorld.ComponentsLibrary
 
 
         private DotNetObjectReference<DropZone> thisReference;
+        private string defaultLabel;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            JSRuntime.InvokeVoidAsync("setAlertMessages", Localizer["ErrorMultipleFilesDropped"].Value);
+            await JSRuntime.InvokeVoidAsync("setAlertMessages", Localizer["ErrorMultipleFilesDropped"].Value);
 
             this.thisReference = DotNetObjectReference.Create(this);
-            JSRuntime.InvokeVoidAsync("setCallbackTarget", this.Id, this.thisReference, AllowMultiple);
+            await JSRuntime.InvokeVoidAsync("setCallbackTarget", this.Id, this.thisReference, AllowMultiple);
+
+            if (DefaultLabel == null) { DefaultLabel = Localizer["DefaultLabel"]; }
+            if (BusyLabel == null) { BusyLabel = Localizer["BusyLabel"]; }
+            if (CompleteLabel == null) { CompleteLabel = Localizer["CompleteLabel"]; }
+            defaultLabel = DefaultLabel;
         }
 
         [JSInvokable]
-        public void HandleDroppedFile(string name, string text)
+        public async Task HandleDroppedFile(string name, string text)
         {
-            OnFileDropped.InvokeAsync(new DroppedFile(name, text));
+            DefaultLabel = BusyLabel;
+            StateHasChanged();
+
+            await OnFileDropped.InvokeAsync(new DroppedFile(name, text));
+
+            DefaultLabel = CompleteLabel;
+            StateHasChanged();
+
+            await Task.Delay(CompleteLabelDisplayTime);
+
+            DefaultLabel = defaultLabel;
+            StateHasChanged();
         }
 
         public void Dispose()

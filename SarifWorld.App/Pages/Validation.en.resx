@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DropZoneLabel" xml:space="preserve">
+  <data name="DefaultLabel" xml:space="preserve">
     <value>Drop your SARIF file here.</value>
+  </data>
+  <data name="BusyLabel" xml:space="preserve">
+    <value>Validating…</value>
+  </data>
+  <data name="CompleteLabel" xml:space="preserve">
+    <value>Validation complete!</value>
   </data>
   <data name="ErrorNonZeroExitCode" xml:space="preserve">
     <value>Validation failed with exit code {0} (0x{0:x8}).</value>

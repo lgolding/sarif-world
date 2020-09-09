@@ -22,6 +22,7 @@
 .drop-area-text-input {
     color: #333;
 }
+
 .drop-area-active,
 .drop-area:focus {
     background-color: #77bafa;
@@ -31,5 +32,13 @@
 }
 
 .drop-area-active .drop-area-text-input {
+    color: #000;
+}
+
+.drop-area-text-busy {
+    color: #00549c;
+}
+
+.drop-area-text-complete {
     color: #000;
 }
