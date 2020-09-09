@@ -65,6 +65,13 @@ namespace SarifWorld.App.Services
                     // Provide each result with a back-pointer to the run that contains it. This is necessary so that
                     // the result can stand on its own in the ResultsView.
                     validationResult.ValidationLog.Runs[0].SetRunOnResults();
+
+                    if (validationResult.ExitCode != 0)
+                    {
+                        // No exception was thrown, so there's no exception message to send back.
+                        // Just tell them something went wrong.
+                        validationResult.ErrorMessage = this.localizer.GetString("ErrorNonZeroExitCode", validationResult.ExitCode);
+                    }
                 }
                 catch (Exception ex)
                 {
