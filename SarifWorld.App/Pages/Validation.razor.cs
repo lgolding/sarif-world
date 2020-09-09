@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using SarifWorld.App.Models;
 using SarifWorld.App.Services;
@@ -16,9 +14,6 @@ namespace SarifWorld.App.Pages
         [Inject]
         public ISarifValidationService SarifValidationService { get; set; }
 
-        [Inject]
-        public IFileSystem FileSystem { get; set; }
-
         private Alert alert;
 
         protected override void OnInitialized()
@@ -28,20 +23,11 @@ namespace SarifWorld.App.Pages
 
         public void ValidateDroppedFile(DroppedFile droppedFile)
         {
-            if (IsSarifFile(droppedFile.Name))
+            ValidationResult validationResult = SarifValidationService.ValidateFile(droppedFile.Name, droppedFile.Text);
+            if (!string.IsNullOrEmpty(validationResult.ErrorMessage))
             {
-                ValidationResult validationResult = SarifValidationService.ValidateFile(droppedFile.Name, droppedFile.Text);
+                alert.Show(validationResult.ErrorMessage);
             }
-            else
-            {
-                alert.Show(Localizer.GetString("ErrorNotASarifFile", droppedFile.Name));
-            }
-        }
-
-        internal static bool IsSarifFile(string fileName)
-        {
-            fileName = fileName.ToLowerInvariant();
-            return fileName.EndsWith(SarifConstants.SarifFileExtension) || fileName.EndsWith(SarifConstants.SarifFileExtension + ".json");
         }
     }
 }
