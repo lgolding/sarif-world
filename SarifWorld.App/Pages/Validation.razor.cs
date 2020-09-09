@@ -47,7 +47,6 @@ namespace SarifWorld.App.Pages
             {
                 FileSystem.WriteAllText(tempFilePath, droppedFile.Text);
                 ValidationResult validationResult = SarifValidationService.ValidateFile(tempFilePath);
-                alert.Show($"Exit code: {validationResult.ExitCode}");
             }
             finally
             {
@@ -76,7 +75,7 @@ namespace SarifWorld.App.Pages
             string guid = Guid.NewGuid().ToString("D");
             string extension = Path.GetExtension(fileName);
 
-            return Path.Combine(tempDirectory, $"{bareFileName}.{guid}.{extension}");
+            return Path.Combine(tempDirectory, $"{bareFileName}.{guid}{extension}");
         }
 
         internal static bool IsSarifFile(string path)

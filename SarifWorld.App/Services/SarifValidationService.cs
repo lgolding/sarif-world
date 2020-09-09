@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
+using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using SarifWorld.App.Models;
+using SarifWorld.ComponentsLibrary;
 
 namespace SarifWorld.App.Services
 {
@@ -20,10 +22,12 @@ namespace SarifWorld.App.Services
         private readonly string s_schemaFilePath = Path.Combine(AppDataDirectory, SchemaFileName);
 
         private readonly IFileSystem fileSystem;
+        private readonly Alert alert;
 
-        public SarifValidationService(IFileSystem fileSystem)
+        public SarifValidationService(IFileSystem fileSystem, IJSRuntime jsRuntime)
         {
             this.fileSystem = fileSystem;
+            alert = new Alert(jsRuntime);
         }
 
         public ValidationResult ValidateFile(string inputFilePath)
@@ -60,6 +64,8 @@ namespace SarifWorld.App.Services
             }
             catch (Exception ex)
             {
+                // TODO: Use a bootstrap alert bar.
+                alert.Show($"Exception: {ex.Message}");
                 validationResult.ErrorMessage = ex.Message;
             }
 
