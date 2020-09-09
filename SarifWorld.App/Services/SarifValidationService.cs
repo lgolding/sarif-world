@@ -112,12 +112,15 @@ namespace SarifWorld.App.Services
 
         private void DeleteTempFile(string tempFilePath)
         {
-            // The SARIF SDK's IFileSystem doesn't implement File.Delete, so call the real API.
-            // But in tests, the file won't actually exist, so ignore exceptions.
-            // https://github.com/microsoft/sarif-sdk/issues/2033
             try
             {
-                File.Delete(tempFilePath);
+                if (this.fileSystem.FileExists(tempFilePath))
+                {
+                    // The SARIF SDK's IFileSystem doesn't implement File.Delete, so call the real API.
+                    // But in tests, the file won't actually exist, so ignore exceptions.
+                    // https://github.com/microsoft/sarif-sdk/issues/2033
+                    File.Delete(tempFilePath);
+                }
             }
             catch
             {

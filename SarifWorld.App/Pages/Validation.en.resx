@@ -121,7 +121,7 @@
     <value>Drop your SARIF file here.</value>
   </data>
   <data name="ErrorNonZeroExitCode" xml:space="preserve">
-    <value>Validation failed with exit code {0}.</value>
+    <value>Validation failed with exit code {0} (0x{0:x8}).</value>
   </data>
   <data name="ErrorNotASarifFile" xml:space="preserve">
     <value>'{0}' is not a SARIF file. Provide a file with extension '.sarif' or '.sarif.json'.</value>
