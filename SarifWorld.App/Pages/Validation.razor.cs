@@ -24,8 +24,14 @@ namespace SarifWorld.App.Pages
         public void ValidateDroppedFile(DroppedFile droppedFile)
         {
             ValidationResult validationResult = SarifValidationService.ValidateFile(droppedFile.Name, droppedFile.Text);
-            if (!string.IsNullOrEmpty(validationResult.ErrorMessage))
+            if (string.IsNullOrEmpty(validationResult.ErrorMessage))
             {
+                // Temporary UI.
+                alert.Show($"Number of results: {validationResult.ValidationLog.Runs[0].Results.Count}");
+            }
+            else
+            {
+                // Temporary UI.
                 alert.Show(validationResult.ErrorMessage);
             }
         }
