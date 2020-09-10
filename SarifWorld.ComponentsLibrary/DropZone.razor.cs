@@ -41,17 +41,25 @@ namespace SarifWorld.ComponentsLibrary
         private DotNetObjectReference<DropZone> thisReference;
         private string defaultLabel;
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            await JSRuntime.InvokeVoidAsync("setAlertMessages", Localizer["ErrorMultipleFilesDropped"].Value);
-
-            this.thisReference = DotNetObjectReference.Create(this);
-            await JSRuntime.InvokeVoidAsync("setCallbackTarget", this.Id, this.thisReference, AllowMultiple);
-
             if (DefaultLabel == null) { DefaultLabel = Localizer["DefaultLabel"]; }
             if (BusyLabel == null) { BusyLabel = Localizer["BusyLabel"]; }
             if (CompleteLabel == null) { CompleteLabel = Localizer["CompleteLabel"]; }
             defaultLabel = DefaultLabel;
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JSRuntime.InvokeVoidAsync("setAlertMessages", Localizer["ErrorMultipleFilesDropped"].Value);
+
+                this.thisReference = DotNetObjectReference.Create(this);
+                await JSRuntime.InvokeVoidAsync("setCallbackTarget", this.Id, this.thisReference, AllowMultiple);
+            }
+
+            await base.OnAfterRenderAsync(firstRender);
         }
 
         [JSInvokable]
