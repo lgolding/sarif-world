@@ -31,18 +31,22 @@ function handleDrop(event) {
     // event.currentTarget is only available while the event is being handled, so it will _not_ be
     // available when the asynchronous call to callBack is made -- unless we save it here.
     const targetElement = event.currentTarget;
-    const callbackMapEntry = callbackMap[targetElement.id];
+    const id = targetElement.id;
+    const callbackMapEntry = callbackMap[id];
     const callbackTarget = callbackMapEntry.callbackTarget;
     const allowMultiple = callbackMapEntry.allowMultiple;
 
     preventDefaults(event);
     const files = event.dataTransfer.files;
     const filesArray = [...files];
-    if (filesArray.length == 0) {
+    if (filesArray.length === 0) {
         callBack(callbackTarget, 0, null, null);
     } else {
-        if (filesArray.length == 1 || allowMultiple) {
-            filesArray.forEach(file => file.text().then(text => callBack(callbackTarget, file.name, text)));
+        if (filesArray.length === 1 || allowMultiple) {
+            filesArray.forEach(file => file.text().then(text => {
+                setDropZoneClass(id, "drop-area-text-busy");
+                callBack(callbackTarget, file.name, text)
+            }));
         } else {
             alert(errorMultipleFilesDropped);
         }
@@ -65,4 +69,13 @@ function highlight (element, on) {
 
 function callBack(callbackTarget, name, text) {
     callbackTarget.invokeMethodAsync('HandleDroppedFile', name, text);
+}
+
+function setDropZoneClass(id, textClass) {
+    console.log(id + ": " + textClass);
+    const element = document.getElementById(id);
+    element.classList.remove("drop-area-text-input");
+    element.classList.remove("drop-area-text-busy");
+    element.classList.remove("drop-area-text-complete");
+    element.classList.add(textClass);
 }
