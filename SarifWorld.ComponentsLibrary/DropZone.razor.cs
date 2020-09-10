@@ -39,14 +39,14 @@ namespace SarifWorld.ComponentsLibrary
 
 
         private DotNetObjectReference<DropZone> thisReference;
-        private string defaultLabel;
+        private string label;
 
         protected override void OnInitialized()
         {
             if (DefaultLabel == null) { DefaultLabel = Localizer["DefaultLabel"]; }
             if (BusyLabel == null) { BusyLabel = Localizer["BusyLabel"]; }
             if (CompleteLabel == null) { CompleteLabel = Localizer["CompleteLabel"]; }
-            defaultLabel = DefaultLabel;
+            label = DefaultLabel;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -65,17 +65,17 @@ namespace SarifWorld.ComponentsLibrary
         [JSInvokable]
         public async Task HandleDroppedFile(string name, string text)
         {
-            DefaultLabel = BusyLabel;
+            label = BusyLabel;
             StateHasChanged();
 
             await OnFileDropped.InvokeAsync(new DroppedFile(name, text));
 
-            DefaultLabel = CompleteLabel;
+            label = CompleteLabel;
             StateHasChanged();
 
             await Task.Delay(CompleteLabelDisplayTime);
 
-            DefaultLabel = defaultLabel;
+            label = DefaultLabel;
             StateHasChanged();
         }
 
