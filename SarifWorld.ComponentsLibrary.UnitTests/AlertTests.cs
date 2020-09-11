@@ -43,5 +43,17 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
             alert.DisplayClass.Should().Be(Alert.BlockDisplay);
             alert.AlertClass.Should().Be(Alert.ErrorAlert);
         }
+
+        [Fact]
+        public void Hide_HidesAlert()
+        {
+            using var ctx = new TestContext();
+            IRenderedComponent<Alert> component = ctx.RenderComponent<Alert>();
+            Alert alert = component.Instance;
+
+            component.InvokeAsync(() => alert.Hide());
+
+            alert.DisplayClass.Should().Be(Alert.NoDisplay);
+        }
     }
 }
