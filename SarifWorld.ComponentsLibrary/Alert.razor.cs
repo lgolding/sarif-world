@@ -4,11 +4,11 @@ namespace SarifWorld.ComponentsLibrary
 {
     public partial class Alert
     {
-        private const string NoDisplay = "d-none";
-        private const string BlockDisplay = "d-block";
+        internal const string NoDisplay = "d-none";
+        internal const string BlockDisplay = "d-block";
 
-        private const string MessageAlert = "alert-primary";
-        private const string ErrorAlert = "alert-danger";
+        internal const string MessageAlert = "alert-primary";
+        internal const string ErrorAlert = "alert-danger";
 
         [Parameter]
         public string Message { get; set; } = string.Empty;

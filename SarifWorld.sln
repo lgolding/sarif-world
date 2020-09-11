@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.App", "SarifWorl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.ComponentsLibrary", "SarifWorld.ComponentsLibrary\SarifWorld.ComponentsLibrary.csproj", "{20637FEC-F09E-4DE8-9539-7406129E8A96}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.ComponentsLibrary.Tests", "SarifWorld.ComponentsLibrary.Tests\SarifWorld.ComponentsLibrary.Tests.csproj", "{80A3F3A2-A461-450A-8234-303748BE8B00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{20637FEC-F09E-4DE8-9539-7406129E8A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20637FEC-F09E-4DE8-9539-7406129E8A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20637FEC-F09E-4DE8-9539-7406129E8A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80A3F3A2-A461-450A-8234-303748BE8B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80A3F3A2-A461-450A-8234-303748BE8B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80A3F3A2-A461-450A-8234-303748BE8B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80A3F3A2-A461-450A-8234-303748BE8B00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
