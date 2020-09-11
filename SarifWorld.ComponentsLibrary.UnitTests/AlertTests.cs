@@ -20,10 +20,10 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
         public void ShowMessage_ShowsAlertWithMessageClass()
         {
             using var ctx = new TestContext();
-            IRenderedComponent<Alert> component = ctx.RenderComponent<Alert>();
-            Alert alert = component.Instance;
+            IRenderedComponent<Alert> cut = ctx.RenderComponent<Alert>();
+            Alert alert = cut.Instance;
 
-            component.InvokeAsync(() => alert.ShowMessage(TestMessage));
+            cut.InvokeAsync(() => alert.ShowMessage(TestMessage));
 
             alert.Message.Should().Be(TestMessage);
             alert.DisplayClass.Should().Be(Alert.BlockDisplay);
@@ -34,10 +34,10 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
         public void ShowError_ShowsAlertWithErrorClass()
         {
             using var ctx = new TestContext();
-            IRenderedComponent<Alert> component = ctx.RenderComponent<Alert>();
-            Alert alert = component.Instance;
+            IRenderedComponent<Alert> cut = ctx.RenderComponent<Alert>();
+            Alert alert = cut.Instance;
 
-            component.InvokeAsync(() => alert.ShowError(TestMessage));
+            cut.InvokeAsync(() => alert.ShowError(TestMessage));
 
             alert.Message.Should().Be(TestMessage);
             alert.DisplayClass.Should().Be(Alert.BlockDisplay);
@@ -48,10 +48,10 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
         public void Hide_HidesAlert()
         {
             using var ctx = new TestContext();
-            IRenderedComponent<Alert> component = ctx.RenderComponent<Alert>();
-            Alert alert = component.Instance;
+            IRenderedComponent<Alert> cut = ctx.RenderComponent<Alert>();
+            Alert alert = cut.Instance;
 
-            component.InvokeAsync(() => alert.Hide());
+            cut.InvokeAsync(() => alert.Hide());
 
             alert.DisplayClass.Should().Be(Alert.NoDisplay);
         }
