@@ -4,7 +4,7 @@ using Xunit;
 
 namespace SarifWorld.ComponentsLibrary.UnitTests
 {
-    public class AlertTests
+    public class AlertTests : TestContext
     {
         private const string TestMessage = "Test message.";
 
@@ -19,8 +19,7 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
         [Fact]
         public void ShowMessage_ShowsAlertWithMessageClass()
         {
-            using var ctx = new TestContext();
-            IRenderedComponent<Alert> cut = ctx.RenderComponent<Alert>();
+            IRenderedComponent<Alert> cut = RenderComponent<Alert>();
             Alert alert = cut.Instance;
 
             cut.InvokeAsync(() => alert.ShowMessage(TestMessage));
@@ -33,8 +32,7 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
         [Fact]
         public void ShowError_ShowsAlertWithErrorClass()
         {
-            using var ctx = new TestContext();
-            IRenderedComponent<Alert> cut = ctx.RenderComponent<Alert>();
+            IRenderedComponent<Alert> cut = RenderComponent<Alert>();
             Alert alert = cut.Instance;
 
             cut.InvokeAsync(() => alert.ShowError(TestMessage));
@@ -47,8 +45,7 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
         [Fact]
         public void Hide_HidesAlert()
         {
-            using var ctx = new TestContext();
-            IRenderedComponent<Alert> cut = ctx.RenderComponent<Alert>();
+            IRenderedComponent<Alert> cut = RenderComponent<Alert>();
             Alert alert = cut.Instance;
 
             cut.InvokeAsync(() => alert.Hide());
