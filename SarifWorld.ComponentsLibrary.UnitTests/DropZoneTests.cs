@@ -9,18 +9,24 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
 {
     public class DropZoneTests : TestContext
     {
-        [Fact]
-        public void DropZone_HasDefaultLabels()
+        private readonly IRenderedComponent<DropZone> cut;
+        private readonly DropZone dropZone;
+
+        public DropZoneTests()
         {
             Services.AddLogging();
             Services.AddLocalization();
             Services.AddMockJSRuntime();
 
-            IRenderedComponent<DropZone> cut = RenderComponent<DropZone>();
-            DropZone dropZone = cut.Instance;
+            this.cut = RenderComponent<DropZone>();
+            this.dropZone = cut.Instance;
+        }
 
+        [Fact]
+        public void DropZone_HasDefaultLabels()
+        {
             IStringLocalizer<DropZone> localizer = Services.GetService<IStringLocalizer<DropZone>>();
-            dropZone.DefaultLabel.Should().Be(localizer["DefaultLabel"]);
+            this.dropZone.DefaultLabel.Should().Be(localizer["DefaultLabel"]);
         }
     }
 }
