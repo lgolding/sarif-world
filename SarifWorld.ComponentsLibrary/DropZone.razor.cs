@@ -8,10 +8,14 @@ namespace SarifWorld.ComponentsLibrary
 {
     public partial class DropZone : IDisposable
     {
+        internal const string DefaultId = "dropZone";
+        internal const int DefaultCompleteLabelDisplayTime = 0;
+        internal const bool DefaultAllowMultiple = true;
+
         // If you have more than one dropZone on a page, provide each with its own
         // Id parameter.
         [Parameter]
-        public string Id { get; set; } = "dropZone";
+        public string Id { get; set; } = DefaultId;
 
         [Parameter]
         public string DefaultLabel { get; set; }
@@ -23,10 +27,10 @@ namespace SarifWorld.ComponentsLibrary
         public string CompleteLabel { get; set; }
 
         [Parameter]
-        public int CompleteLabelDisplayTime { get; set; }
+        public int CompleteLabelDisplayTime { get; set; } = DefaultCompleteLabelDisplayTime;
 
         [Parameter]
-        public bool AllowMultiple { get; set; } = true;
+        public bool AllowMultiple { get; set; } = DefaultAllowMultiple;
 
         [Parameter]
         public EventCallback<DroppedFile> OnFileDropped { get; set; }
