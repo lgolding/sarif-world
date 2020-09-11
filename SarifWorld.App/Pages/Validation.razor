@@ -5,9 +5,9 @@
     @Localizer["PageTitle"]
 </div>
 
-<Alert @ref="Alert" />
-
 <section class="content-section">
+    <Alert @ref="Alert" />
+
     <DropZone OnFileDropped="@ValidateDroppedFile"
               AllowMultiple="false"
               DefaultLabel="@Localizer["DefaultLabel"]"
@@ -15,5 +15,5 @@
               CompleteLabel="@Localizer["CompleteLabel"]"
               CompleteLabelDisplayTime="5000" />
 
-    <Multiselect />
+    <Multiselect @ref="RulesSelector" />
 </section>
