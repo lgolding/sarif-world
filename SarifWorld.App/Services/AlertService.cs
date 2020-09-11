@@ -1,12 +1,12 @@
 ﻿using Microsoft.JSInterop;
 
-namespace SarifWorld.ComponentsLibrary
+namespace SarifWorld.App.Services
 {
-    public class Alert
+    public class AlertService : IAlertService
     {
         private readonly IJSRuntime jsRuntime;
 
-        public Alert(IJSRuntime jsRuntime)
+        public AlertService(IJSRuntime jsRuntime)
         {
             this.jsRuntime = jsRuntime;
         }

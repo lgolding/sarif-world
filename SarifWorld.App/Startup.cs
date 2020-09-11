@@ -25,6 +25,7 @@ namespace SarifWorld.App
             services.AddServerSideBlazor();
             services.AddLocalization();
 
+            services.AddScoped<IAlertService, AlertService>();
             services.AddScoped<IFileSystem, FileSystem>();
             services.AddScoped<ISarifValidationService, SarifValidationService>();
         }
