@@ -1,9 +1,8 @@
-using System;
 using Bunit;
 using FluentAssertions;
 using Xunit;
 
-namespace SarifWorld.ComponentsLibrary.Test
+namespace SarifWorld.ComponentsLibrary.UnitTests
 {
     public class AlertTests
     {
