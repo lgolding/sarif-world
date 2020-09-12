@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis.Sarif;
@@ -20,16 +21,23 @@ namespace SarifWorld.App.Pages
 
         public void ValidateDroppedFile(DroppedFile droppedFile)
         {
-            ValidationResult validationResult = SarifValidationService.ValidateFile(droppedFile.Name, droppedFile.Text);
-            if (string.IsNullOrEmpty(validationResult.ErrorMessage))
+            try
             {
-                Alert.ShowMessage($"Number of results: {validationResult.ValidationLog.Runs[0].Results.Count}");
-                List<string> ruleIds = GetRuleIds(validationResult.ValidationLog);
-                RulesSelector.SetOptions(ruleIds);
+                ValidationResult validationResult = SarifValidationService.ValidateFile(droppedFile.Name, droppedFile.Text);
+                if (string.IsNullOrEmpty(validationResult.ErrorMessage))
+                {
+                    Alert.ShowMessage($"Number of results: {validationResult.ValidationLog.Runs[0].Results.Count}");
+                    List<string> ruleIds = GetRuleIds(validationResult.ValidationLog);
+                    RulesSelector.SetOptions(ruleIds);
+                }
+                else
+                {
+                    Alert.ShowError(validationResult.ErrorMessage);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Alert.ShowError(validationResult.ErrorMessage);
+                Alert.ShowError(ex.Message);
             }
         }
 
