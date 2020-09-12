@@ -11,13 +11,11 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
 {
     public class DropZoneTests : TestContext
     {
-        private readonly MockJSRuntimeInvokeHandler mockJS;
-
         public DropZoneTests()
         {
             Services.AddLogging();
             Services.AddLocalization();
-            this.mockJS = Services.AddMockJSRuntime();
+            Services.AddMockJSRuntime();
         }
 
         [Fact]
