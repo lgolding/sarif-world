@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.ComponentsLibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.ComponentsLibrary.UnitTests", "SarifWorld.ComponentsLibrary.UnitTests\SarifWorld.ComponentsLibrary.UnitTests.csproj", "{20ABCC9E-D9F8-481F-8B65-2ED0F02D8AA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifWorld.App.UnitTests", "SarifWorld.App.UnitTests\SarifWorld.App.UnitTests.csproj", "{AD2DF42D-12E9-4B5F-812F-D320AD517605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.App.UnitTests", "SarifWorld.App.UnitTests\SarifWorld.App.UnitTests.csproj", "{AD2DF42D-12E9-4B5F-812F-D320AD517605}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
