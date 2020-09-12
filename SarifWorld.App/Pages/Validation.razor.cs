@@ -43,18 +43,17 @@ namespace SarifWorld.App.Pages
 
         List<string> GetRuleIds(SarifLog log)
         {
-            IList<Run> runs = log.Runs;
-            if (runs?.Any() == true)
+            // The validation service _always_ returns a log file with a single, well-formed
+            // run. There's no need to null-check anything...s
+            IList<ReportingDescriptor> rules = log.Runs[0].Tool.Driver.Rules;
+
+            // ... but if there were no violations, there won't be any rules.
+            if (rules?.Any() == true)
             {
-                Run run = runs[0];
-                IList<ReportingDescriptor> rules = run?.Tool?.Driver?.Rules;
-                if (rules?.Any() == true)
-                {
-                    return rules
-                        .Select(r => r.Id)
-                        .Where(s => !s.IsNullOrEmpty())
-                        .ToList();
-                }
+                return rules
+                    .Select(r => r.Id)
+                    .Where(s => !s.IsNullOrEmpty())
+                    .ToList();
             }
 
             return new List<string>();
