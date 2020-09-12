@@ -41,7 +41,6 @@ namespace SarifWorld.ComponentsLibrary
         [Inject]
         public IStringLocalizer<DropZone> Localizer { get; set; }
 
-
         private DotNetObjectReference<DropZone> thisReference;
         private string label;
 

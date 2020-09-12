@@ -1,19 +1,23 @@
-﻿using Bunit;
+﻿using System.Threading.Tasks;
+using Bunit;
 using Bunit.TestDoubles.JSInterop;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Xunit;
+using static Bunit.ComponentParameterFactory;
 
 namespace SarifWorld.ComponentsLibrary.UnitTests
 {
     public class DropZoneTests : TestContext
     {
+        private readonly MockJSRuntimeInvokeHandler mockJS;
+
         public DropZoneTests()
         {
             Services.AddLogging();
             Services.AddLocalization();
-            Services.AddMockJSRuntime();
+            this.mockJS = Services.AddMockJSRuntime();
         }
 
         [Fact]
@@ -60,6 +64,31 @@ namespace SarifWorld.ComponentsLibrary.UnitTests
 
             dropZone.CompleteLabelDisplayTime.Should().Be(TestCompleteLabelDisplayTime);
             dropZone.AllowMultiple.Should().Be(TestAllowMultiple);
+        }
+
+        // This test does not exercise the plumbing where you drop a file onto the DropZone,
+        // the DropZone's _JavaScript_ ondrop handler is triggered, and it calls back on
+        // DropZone's C# handler. It exercises only that C# handler, which in turn calls
+        // back on the handler that the _containing_ component registered.
+        [Fact]
+        public async Task DropZone_CallsBackOnDroppedFileHandler()
+        {
+            const string TestFileName = "test.txt";
+            const string TestFileText = "Hello, world!";
+
+            DroppedFile droppedFile = null;
+
+            IRenderedComponent<DropZone> cut = RenderComponent<DropZone>(
+                EventCallback(
+                    nameof(DropZone.OnFileDropped), 
+                    (DroppedFile arg) => { droppedFile = arg; }));
+
+            DropZone dropZone = cut.Instance;
+            await cut.InvokeAsync(
+                () => dropZone.HandleDroppedFile(TestFileName, TestFileText));
+
+            droppedFile.Name.Should().Be(TestFileName);
+            droppedFile.Text.Should().Be(TestFileText);
         }
     }
 }
