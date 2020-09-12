@@ -62,15 +62,6 @@ namespace SarifWorld.ComponentsLibrary
                 await JSRuntime.InvokeVoidAsync("setCallbackTarget", Id, this.thisReference, AllowMultiple);
             }
 
-            string textClass =
-                label == BusyLabel
-                ? "drop-area-text-busy"
-                : label == CompleteLabel
-                ? "drop-area-text-complete"
-                : "drop-area-text-input";
-
-            await JSRuntime.InvokeVoidAsync("setDropZoneClass", Id, textClass);
-
             await base.OnAfterRenderAsync(firstRender);
         }
 

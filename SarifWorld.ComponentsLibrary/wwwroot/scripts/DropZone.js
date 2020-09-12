@@ -44,7 +44,6 @@ function handleDrop(event) {
     } else {
         if (filesArray.length === 1 || allowMultiple) {
             filesArray.forEach(file => file.text().then(text => {
-                setDropZoneClass(id, "drop-area-text-busy");
                 callBack(callbackTarget, file.name, text)
             }));
         } else {
@@ -69,13 +68,4 @@ function highlight (element, on) {
 
 function callBack(callbackTarget, name, text) {
     callbackTarget.invokeMethodAsync('HandleDroppedFile', name, text);
-}
-
-function setDropZoneClass(id, textClass) {
-    console.log(id + ": " + textClass);
-    const element = document.getElementById(id);
-    element.classList.remove("drop-area-text-input");
-    element.classList.remove("drop-area-text-busy");
-    element.classList.remove("drop-area-text-complete");
-    element.classList.add(textClass);
 }
