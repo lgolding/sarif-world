@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.CodeAnalysis.Sarif.Multitool;
-using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using SarifWorld.App.Models;
 using SarifWorld.App.Pages;
@@ -19,12 +18,14 @@ namespace SarifWorld.App.Services
         private const string SchemaFileName = "sarif-2.1.0-rtm.5.json";
         private const string ValidationFileNameMarker = "-validation";
 
+        internal const string ErrorNotASarifFile = "ErrorNotASarifFile";
+
         private readonly string s_schemaFilePath = Path.Combine(AppDataDirectory, SchemaFileName);
 
         private readonly IFileSystem fileSystem;
-        private readonly IStringLocalizer localizer;
+        private readonly ILocalizationWrapper<Validation> localizer;
 
-        public SarifValidationService(IFileSystem fileSystem, IStringLocalizer<Validation> localizer)
+        public SarifValidationService(IFileSystem fileSystem, ILocalizationWrapper<Validation> localizer)
         {
             this.fileSystem = fileSystem;
             this.localizer = localizer;
@@ -85,7 +86,7 @@ namespace SarifWorld.App.Services
             }
             else
             {
-                validationResult.ErrorMessage = this.localizer.GetString("ErrorNotASarifFile", fileName);
+                validationResult.ErrorMessage = this.localizer.GetString(ErrorNotASarifFile, fileName);
             }
 
             return validationResult;

@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SarifWorld.App.Pages;
 using SarifWorld.App.Services;
 
 namespace SarifWorld.App
@@ -27,6 +28,7 @@ namespace SarifWorld.App
 
             services.AddScoped<IAlertService, AlertService>();
             services.AddScoped<IFileSystem, FileSystem>();
+            services.AddScoped<ILocalizationWrapper<Validation>, LocalizationWrapper<Validation>>();
             services.AddScoped<ISarifValidationService, SarifValidationService>();
         }
 
