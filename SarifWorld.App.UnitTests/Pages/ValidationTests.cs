@@ -7,7 +7,6 @@ using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using SarifWorld.App.Models;
-using SarifWorld.App.Pages;
 using SarifWorld.App.Services;
 using SarifWorld.ComponentsLibrary;
 using Xunit;
