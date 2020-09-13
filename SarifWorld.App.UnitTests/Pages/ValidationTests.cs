@@ -12,7 +12,7 @@ using SarifWorld.App.Services;
 using SarifWorld.ComponentsLibrary;
 using Xunit;
 
-namespace SarifWorld.App.UnitTests
+namespace SarifWorld.App.Pages.UnitTests
 {
     public class ValidationTests : TestContext
     {
