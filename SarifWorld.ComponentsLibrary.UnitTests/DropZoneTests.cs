@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 using Xunit;
 using static Bunit.ComponentParameterFactory;
 
-namespace SarifWorld.ComponentsLibrary.UnitTests
+namespace SarifWorld.ComponentsLibrary
 {
     public class DropZoneTests : TestContext
     {

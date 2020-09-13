@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
     <IsPackable>false</IsPackable>
+    <RootNamespace>SarifWorld.ComponentsLibrary</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

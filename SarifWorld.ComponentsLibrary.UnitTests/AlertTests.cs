@@ -2,7 +2,7 @@ using Bunit;
 using FluentAssertions;
 using Xunit;
 
-namespace SarifWorld.ComponentsLibrary.UnitTests
+namespace SarifWorld.ComponentsLibrary
 {
     public class AlertTests : TestContext
     {

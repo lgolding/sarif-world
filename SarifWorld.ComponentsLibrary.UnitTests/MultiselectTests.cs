@@ -4,7 +4,7 @@ using Bunit;
 using FluentAssertions;
 using Xunit;
 
-namespace SarifWorld.ComponentsLibrary.UnitTests
+namespace SarifWorld.ComponentsLibrary
 {
     public class MultiselectTests : TestContext
     {
