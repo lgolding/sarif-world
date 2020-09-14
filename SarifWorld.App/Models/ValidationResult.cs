@@ -10,7 +10,7 @@ namespace SarifWorld.App.Models
         public ValidationResult()
         {
             InputFileContents = string.Empty;
-            ResultFileContents = string.Empty;
+            OutputFileContents = string.Empty;
             ValidationLog = null;
             ExitCode = 0;
             ErrorMessage = string.Empty;
@@ -18,7 +18,7 @@ namespace SarifWorld.App.Models
 
         public string InputFileContents { get; set; }
 
-        public string ResultFileContents { get; set; }
+        public string OutputFileContents { get; set; }
 
         public SarifLog ValidationLog { get; set; }
 

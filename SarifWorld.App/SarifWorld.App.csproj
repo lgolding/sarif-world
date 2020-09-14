@@ -2,17 +2,36 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Debugging>false</Debugging>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="3.1.8" />
-    <PackageReference Include="Moq" Version="4.14.5" />
+    <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Debugging)' != 'true'">
     <PackageReference Include="Sarif.Driver" Version="2.3.5" />
     <PackageReference Include="Sarif.Multitool.Library" Version="2.3.5" />
     <PackageReference Include="Sarif.Sdk" Version="2.3.5" />
-    <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Debugging)' == 'true'">
+    <!-- When debugging, use built binaries from the SARIF SDK so we can debug into it.
+         See https://github.com/lgolding/sarif-world/issues/6
+    -->
+    <Reference Include="c:\dev\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Multitool\netcoreapp3.1\Sarif.Multitool.Library.dll" />
+    <Reference Include="c:\dev\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Multitool\netcoreapp3.1\Sarif.Driver.dll" />
+    <Reference Include="c:\dev\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Multitool\netcoreapp3.1\Sarif.dll" />
+    
+    <!-- Since I haven't brought in the SARIF SDK NuGet packages, I don't get their package dependencies for free,
+         so mention them here.
+    -->
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Microsoft.Json.Schema" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Json.Schema.Validation" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

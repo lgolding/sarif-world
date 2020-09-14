@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis.Sarif;
-using Microsoft.TeamFoundation.Common;
 using SarifWorld.App.Models;
 using SarifWorld.App.Services;
 using SarifWorld.ComponentsLibrary;
@@ -52,7 +51,7 @@ namespace SarifWorld.App.Pages
             {
                 return rules
                     .Select(r => r.Id)
-                    .Where(s => !s.IsNullOrEmpty())
+                    .Where(s => !string.IsNullOrEmpty(s))
                     .ToList();
             }
 

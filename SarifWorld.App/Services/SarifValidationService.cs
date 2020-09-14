@@ -14,13 +14,9 @@ namespace SarifWorld.App.Services
 {
     public class SarifValidationService : ISarifValidationService
     {
-        private const string AppDataDirectory = "App_Data";
-        private const string SchemaFileName = "sarif-2.1.0-rtm.5.json";
         private const string ValidationFileNameMarker = "-validation";
 
         internal const string ErrorNotASarifFile = "ErrorNotASarifFile";
-
-        private readonly string s_schemaFilePath = Path.Combine(AppDataDirectory, SchemaFileName);
 
         private readonly IFileSystem fileSystem;
         private readonly ILocalizationWrapper<Validation> localizer;
@@ -46,7 +42,6 @@ namespace SarifWorld.App.Services
                     {
                         inputFilePath
                     },
-                    SchemaFilePath = s_schemaFilePath,
                     OutputFilePath = outputFilePath,
                     Force = true,
                     PrettyPrint = true,
@@ -60,8 +55,8 @@ namespace SarifWorld.App.Services
                     validationResult.ExitCode = validateCommand.Run(validateOptions);
 
                     validationResult.InputFileContents = fileContents;
-                    validationResult.ResultFileContents = fileSystem.ReadAllText(outputFilePath);
-                    validationResult.ValidationLog = JsonConvert.DeserializeObject<SarifLog>(validationResult.ResultFileContents);
+                    validationResult.OutputFileContents = fileSystem.ReadAllText(outputFilePath);
+                    validationResult.ValidationLog = JsonConvert.DeserializeObject<SarifLog>(validationResult.OutputFileContents);
 
                     // Provide each result with a back-pointer to the run that contains it. This is necessary so that
                     // the result can stand on its own in the ResultsView.
