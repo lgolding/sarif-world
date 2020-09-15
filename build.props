@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- When debugging, use built binaries from the SARIF SDK so we can debug into it.
+         See https://github.com/lgolding/sarif-world/issues/6
+    -->
+  <PropertyGroup>
+    <Debugging>false</Debugging>
+    <SarifSdkBinariesDir>c:\dev\sarif-sdk\bld\bin\AnyCPU_Debug\Sarif.Multitool\netcoreapp3.1\</SarifSdkBinariesDir>
+  </PropertyGroup>
+</Project>

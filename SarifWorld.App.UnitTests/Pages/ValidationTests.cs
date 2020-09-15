@@ -114,7 +114,7 @@ namespace SarifWorld.App.Pages
             page.RulesSelector.Options.Count.Should().Be(0);
         }
 
-    [Fact]
+        [Fact]
         public void ValidateDroppedFile_WhenValidationFails_DisplaysErrorMessage()
         {
             ValidationResult validationResult = new ValidationResult
