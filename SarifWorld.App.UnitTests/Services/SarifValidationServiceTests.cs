@@ -1,18 +1,21 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using FluentAssertions;
 using Microsoft.CodeAnalysis.Sarif;
 using Microsoft.Extensions.Localization;
 using Moq;
-using SarifWorld.App.Pages;
 using SarifWorld.App.Models;
+using SarifWorld.App.Pages;
+using SarifWorld.TestUtilities;
 using Xunit;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace SarifWorld.App.Services
 {
     public class SarifValidationServiceTests
     {
+        private static readonly ResourceExtractor s_extractor = new ResourceExtractor(typeof(SarifValidationServiceTests));
+
         [Fact]
         public void SarifValidationService_WhenInputIsNotASarifFile_ReportsAnError()
         {
@@ -36,11 +39,11 @@ namespace SarifWorld.App.Services
         [Fact]
         public void SarifValidationService_WhenInputFileIsASarifFile_ReportsValidationResults()
         {
-            const string FileName = "test.sarif";
+            const string FileName = "EmptyBraces.sarif";
 
             // This isn't a valid SARIF file, but that's fine -- the validation service should
             // tell us so, and we'll verify that at the end.
-            const string FileContents = "{}";
+            string fileContents = s_extractor.GetResourceText(FileName);
 
             // Mocking the file system here is tricky, because the service synthesizes the names
             // of the input and output files from GUIDs. The test relies on the fact that the
@@ -113,7 +116,7 @@ namespace SarifWorld.App.Services
 
             var service = new SarifValidationService(mockFileSystem.Object, mockLocalizer.Object);
 
-            ValidationResult validationResult = service.ValidateFile(FileName, FileContents);
+            ValidationResult validationResult = service.ValidateFile(FileName, fileContents);
 
             // All the results should be JSON1002 (schema validation errors).
             var results = validationResult.ValidationLog.Runs[0].Results;

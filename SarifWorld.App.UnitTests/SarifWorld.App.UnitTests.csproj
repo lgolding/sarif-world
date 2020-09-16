@@ -9,10 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestData\EmptyBraces.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\EmptyBraces.sarif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bunit" Version="1.0.0-beta-9" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Moq" Version="4.14.5" />
+    <PackageReference Include="Sarif.Sdk" Version="2.3.5" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
@@ -31,6 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SarifWorld.App\SarifWorld.App.csproj" />
+    <ProjectReference Include="..\SarifWorld.TestUtilities\SarifWorld.TestUtilities.csproj" />
   </ItemGroup>
 
 </Project>

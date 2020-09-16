@@ -156,6 +156,5 @@ namespace SarifWorld.App.Pages
             page.Alert.Message.Should().Be(TestErrorMessage);
             page.Alert.AlertClass.Should().Be(Alert.ErrorAlert);
         }
-
     }
 }
