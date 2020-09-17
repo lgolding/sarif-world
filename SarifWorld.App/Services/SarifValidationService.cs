@@ -62,7 +62,7 @@ namespace SarifWorld.App.Services
                     // the result can stand on its own in the ResultsView.
                     validationResult.ValidationLog.Runs[0].SetRunOnResults();
 
-                    if (validationResult.ExitCode != 0)
+                    if ((validationResult.ExitCode & ~(int)RuntimeConditions.Nonfatal) != 0)
                     {
                         // No exception was thrown, so there's no exception message to send back.
                         // Just tell them something went wrong.

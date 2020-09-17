@@ -9,11 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestData\EmptyBraces.sarif" />
+    <None Remove="TestData\SarifWarnings.sarif" />
+    <None Remove="TestData\SchemaErrors.sarif" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestData\EmptyBraces.sarif" />
+    <EmbeddedResource Include="TestData\SchemaErrors.sarif" />
+    <EmbeddedResource Include="TestData\SarifWarnings.sarif" />
   </ItemGroup>
 
   <ItemGroup>
