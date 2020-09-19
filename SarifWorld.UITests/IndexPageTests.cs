@@ -15,10 +15,8 @@ namespace SarifWorld.UITests
             // hangs and never finishes. I searched and found several
             // people who observed this, and the thing that most say
             // is to run the tests non-Admin. I don't know the root cause.
-            using (IWebDriver driver = new ChromeDriver())
-            {
-                driver.Navigate().GoToUrl("https://localhost:44392/");
-            }
+            using IWebDriver driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("https://localhost:44392/");
         }
     }
 }
