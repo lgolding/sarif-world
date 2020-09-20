@@ -5,6 +5,8 @@
     <Debugging>false</Debugging>
   </PropertyGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.8" />

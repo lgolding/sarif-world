@@ -7,6 +7,8 @@
     <RootNamespace>SarifWorld.ComponentsLibrary</RootNamespace>
   </PropertyGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.0.0-beta-9" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />

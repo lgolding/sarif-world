@@ -8,6 +8,8 @@
     <Debugging>false</Debugging>
   </PropertyGroup>
 
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), build.props))\build.props" />
+
   <ItemGroup>
     <None Remove="TestData\SarifWarnings.sarif" />
     <None Remove="TestData\SchemaErrors.sarif" />

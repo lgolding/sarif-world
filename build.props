@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
   <!-- When debugging, use built binaries from the SARIF SDK so we can debug into it.
          See https://github.com/lgolding/sarif-world/issues/6
     -->
