@@ -11,9 +11,15 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="85.0.4183.8700" />
+    <PackageReference Include="System.Resources.Reader" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SarifWorld.App\SarifWorld.App.csproj" />
+    <ProjectReference Include="..\SarifWorld.TestUtilities\SarifWorld.TestUtilities.csproj" />
   </ItemGroup>
 
 </Project>
