@@ -28,7 +28,7 @@ namespace SarifWorld.App
 
         [Fact]
         [Trait("Category", "Smoke")]
-        public void IndexPage_ShouldBeDisplayedWhenAppStarts()
+        public void IndexPage_ShouldHaveCorrectTitle()
         {
             var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
