@@ -18,6 +18,7 @@ namespace SarifWorld.App
             string expectedTitle = stringResources["PageTitle"];
 
             Driver.Title.Should().Be(expectedTitle);
+            Driver.Url.Should().Be(ApplicationUri);
         }
     }
 }

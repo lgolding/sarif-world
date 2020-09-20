@@ -15,10 +15,12 @@ namespace SarifWorld.App
             service.EnableVerboseLogging = true;
 
             Driver = new ChromeDriver(service);
-            Driver.Navigate().GoToUrl("http://localhost:61981/");
+            Driver.Navigate().GoToUrl(ApplicationUri);
         }
 
         protected IWebDriver Driver { get; private set; }
+
+        protected string ApplicationUri { get; } = "https://localhost:44392/";
 
         protected virtual void Dispose(bool disposing)
         {
