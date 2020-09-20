@@ -23,6 +23,7 @@ namespace SarifWorld.App
             service.EnableVerboseLogging = true;
 
             this.driver = new ChromeDriver(service);
+            this.driver.Navigate().GoToUrl("http://localhost:61981/");
         }
 
         [Fact]
@@ -31,8 +32,6 @@ namespace SarifWorld.App
         {
             var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
-
-            this.driver.Navigate().GoToUrl("http://localhost:61981/");
 
             this.driver.Title.Should().Be(expectedTitle);
         }
