@@ -1,32 +1,64 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using SarifWorld.App.Pages;
 using SarifWorld.TestUtilities;
 using Xunit;
 
 namespace SarifWorld.App
 {
+    // Note: If you run these tests as Admin (at least on Windows 10), Chrome crashes with "Aw,
+    // snap!". Multiple posters report this and suggest running the tests as non-Admin, but
+    // I don't know the root cause.
     [Trait("Category", "UITest")]
-    public class IndexPageTests
+    public class IndexPageTests : IDisposable
     {
+        private IWebDriver driver;
+        private bool disposed;
+
+        public IndexPageTests()
+        {
+            ChromeDriverService service = ChromeDriverService.CreateDefaultService();
+            service.LogPath = "chromedriver.log";
+            service.EnableVerboseLogging = true;
+
+            this.driver = new ChromeDriver(service);
+        }
+
         [Fact]
         [Trait("Category", "Smoke")]
         public void IndexPage_ShouldBeDisplayedWhenAppStarts()
         {
-            var stringResources = new ResourceStrings(typeof(Index));
+            var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
 
-            // Note: If you run these tests with VS running as Admin,
-            // Chrome crashes (displays a frowny face) and the test
-            // hangs and never finishes. I searched and found several
-            // people who observed this, and the thing that most say
-            // is to run the tests non-Admin. I don't know the root cause.
-            using IWebDriver driver = new ChromeDriver();
+            this.driver.Navigate().GoToUrl("http://localhost:61981/");
 
-            driver.Navigate().GoToUrl("https://localhost:44392/");
+            this.driver.Title.Should().Be(expectedTitle);
+        }
 
-            driver.Title.Should().Be(expectedTitle);
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    if (this.driver != null)
+                    {
+                        this.driver.Dispose();
+                        this.driver = null;
+                    }
+                }
+
+                disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }
