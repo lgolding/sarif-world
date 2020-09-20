@@ -20,5 +20,18 @@ namespace SarifWorld.App
             Driver.Title.Should().Be(expectedTitle);
             Driver.Url.Should().Be(ApplicationUri);
         }
+
+        [Fact]
+        [Trait(TestTraits.Category, TestCategories.Smoke)]
+        public void IndexPage_CanRefresh()
+        {
+            var stringResources = new ResourceStrings(typeof(Pages.Index));
+            string expectedTitle = stringResources["PageTitle"];
+
+            Driver.Navigate().Refresh();
+
+            Driver.Title.Should().Be(expectedTitle);
+            Driver.Url.Should().Be(ApplicationUri);
+        }
     }
 }
