@@ -5,7 +5,7 @@ using SarifWorld.App.Pages;
 using SarifWorld.TestUtilities;
 using Xunit;
 
-namespace SarifWorld.UITests
+namespace SarifWorld.App
 {
     public class IndexPageTests
     {

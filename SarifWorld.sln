@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.App.UnitTests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SarifWorld.TestUtilities", "SarifWorld.TestUtilities\SarifWorld.TestUtilities.csproj", "{69F7DFF4-0C54-4D00-9645-3633E7C87146}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifWorld.UITests", "SarifWorld.UITests\SarifWorld.UITests.csproj", "{48CAA4F7-F4A8-4B30-91A2-DFF353422808}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarifWorld.App.UITests", "SarifWorld.App.UITests\SarifWorld.App.UITests.csproj", "{48CAA4F7-F4A8-4B30-91A2-DFF353422808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
