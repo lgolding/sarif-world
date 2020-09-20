@@ -7,6 +7,7 @@ using Xunit;
 
 namespace SarifWorld.App
 {
+    [Trait("Category", "UITest")]
     public class IndexPageTests
     {
         [Fact]
