@@ -20,21 +20,26 @@ namespace SarifWorld.App
 
         private bool disposed;
 
-        protected PageTestBase()
+        protected PageTestBase(string relativeUri = null)
         {
             ChromeDriverService service = ChromeDriverService.CreateDefaultService();
             service.LogPath = "chromedriver.log";
             service.EnableVerboseLogging = true;
 
             ApplicationUri = GetApplicationUri();
+            PageUri = relativeUri != null
+                ? GetPageUri(relativeUri)
+                : ApplicationUri;
 
             Driver = new ChromeDriver(service);
-            Driver.Navigate().GoToUrl(ApplicationUri);
+            Driver.Navigate().GoToUrl(PageUri);
         }
 
         protected IWebDriver Driver { get; private set; }
 
         protected string ApplicationUri { get; }
+
+        protected string PageUri { get; }
 
         protected IWebElement WaitFor(By locator, Func<IWebElement, bool> condition)
         {
@@ -113,6 +118,13 @@ namespace SarifWorld.App
             builder.Scheme = ApplicationUriScheme;
             builder.Port = sslPort;
 
+            return builder.ToString();
+        }
+
+        private string GetPageUri(string relativeUri)
+        {
+            var builder = new UriBuilder(ApplicationUri);
+            builder.Path += relativeUri;
             return builder.ToString();
         }
     }
