@@ -31,9 +31,8 @@ namespace SarifWorld.App
 
         protected string ApplicationUri { get; }
 
-        // There's no way to know how long to wait after a navigation to make sure
-        // that SignalR is done updating the DOM. So just catch StaleElementReferenceException
-        // and retry.
+        // Perform an action once SignalR has finished updating the DOM. There's now way to know
+        // when the DOM is done updating, so just catch StaleElementReferenceException and retry.
         // CONSIDER: Limit number or time duration of retries.
         protected void WaitForSignalR(Action assertion)
         {
@@ -51,6 +50,8 @@ namespace SarifWorld.App
                 }
             } while (isStale);
         }
+
+        #region IDispose
 
         protected virtual void Dispose(bool disposing)
         {
@@ -76,6 +77,9 @@ namespace SarifWorld.App
             GC.SuppressFinalize(this);
         }
 
+        #endregion
+
+        // Constructs the HTTPS application URI from information in launchSettings.json.
         private string GetApplicationUri()
         {
             const string LaunchSettingsPath = @"Properties\launchSettings.json";
