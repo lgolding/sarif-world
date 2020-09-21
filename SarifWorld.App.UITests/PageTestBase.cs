@@ -65,6 +65,13 @@ namespace SarifWorld.App
             return element;
         }
 
+        protected string GetPageUri(string relativeUri)
+        {
+            var builder = new UriBuilder(ApplicationUri);
+            builder.Path += relativeUri;
+            return builder.ToString();
+        }
+
         #region IDispose
 
         protected virtual void Dispose(bool disposing)
@@ -118,13 +125,6 @@ namespace SarifWorld.App
             builder.Scheme = ApplicationUriScheme;
             builder.Port = sslPort;
 
-            return builder.ToString();
-        }
-
-        private string GetPageUri(string relativeUri)
-        {
-            var builder = new UriBuilder(ApplicationUri);
-            builder.Path += relativeUri;
             return builder.ToString();
         }
     }

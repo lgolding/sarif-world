@@ -8,7 +8,7 @@ namespace SarifWorld.App
     [Trait(TestTraits.Category, TestCategories.UITest)]
     public class ValidationPageTests : PageTestBase
     {
-        public ValidationPageTests() : base("/validation") { }
+        public ValidationPageTests() : base(RelativePageUris.Validation) { }
 
         [Fact]
         [Trait(TestTraits.Category, TestCategories.Smoke)]

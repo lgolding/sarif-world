@@ -49,9 +49,9 @@ namespace SarifWorld.App
         {
             var stringResources = new ResourceStrings(typeof(Pages.Validation));
             string expectedTitle = stringResources["PageTitle"];
-            string expectedUri = $"{ApplicationUri}validation";
+            string expectedUri = GetPageUri(RelativePageUris.Validation);
 
-            IWebElement validationNavLink = Driver.FindElement(By.CssSelector("[data-nav-target='validation']"));
+            IWebElement validationNavLink = Driver.FindElement(By.CssSelector($"[data-nav-target='{RelativePageUris.Validation}']"));
             validationNavLink.Click();
 
             Driver.Title.Should().Be(WebPageTitle);
