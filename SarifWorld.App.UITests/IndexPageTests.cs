@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using OpenQA.Selenium;
 using SarifWorld.TestUtilities;
 using Xunit;
 
@@ -17,8 +18,14 @@ namespace SarifWorld.App
             var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
 
-            Driver.Title.Should().Be(expectedTitle);
+            Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(ApplicationUri);
+
+            WaitForSignalR(() =>
+            {
+                IWebElement pageTitle = Driver.FindElement(By.ClassName("page-title"));
+                pageTitle.Text.Trim().Should().Be(expectedTitle);
+            });
         }
 
         [Fact]
@@ -30,8 +37,36 @@ namespace SarifWorld.App
 
             Driver.Navigate().Refresh();
 
-            Driver.Title.Should().Be(expectedTitle);
+            Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(ApplicationUri);
+
+            WaitForSignalR(() =>
+            {
+                IWebElement pageTitle = Driver.FindElement(By.ClassName("page-title"));
+                pageTitle.Text.Trim().Should().Be(expectedTitle);
+            });
+        }
+
+
+        [Fact]
+        [Trait(TestTraits.Category, TestCategories.Smoke)]
+        public void IndexPage_CanNavigateToValidationPage()
+        {
+            var stringResources = new ResourceStrings(typeof(Pages.Validation));
+            string expectedTitle = stringResources["PageTitle"];
+            string expectedUri = $"{ApplicationUri}validation";
+
+            IWebElement validationNavLink = Driver.FindElement(By.CssSelector("[data-nav-target='validation']"));
+            validationNavLink.Click();
+
+            Driver.Title.Should().Be(WebPageTitle);
+            Driver.Url.Should().Be(expectedUri);
+
+            WaitForSignalR(() =>
+            {
+                IWebElement pageTitle = Driver.FindElement(By.ClassName("page-title"));
+                pageTitle.Text.Trim().Should().Be(expectedTitle);
+            });
         }
     }
 }

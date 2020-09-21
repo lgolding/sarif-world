@@ -9,6 +9,10 @@ namespace SarifWorld.App
 {
     public abstract class PageTestBase : IDisposable
     {
+        // This is a single page application; the page title always stays the same
+        // (until the day comes when we write script to update it when we navigate).
+        protected const string WebPageTitle = "SARIF";
+
         private bool disposed;
 
         protected PageTestBase()
@@ -26,6 +30,27 @@ namespace SarifWorld.App
         protected IWebDriver Driver { get; private set; }
 
         protected string ApplicationUri { get; }
+
+        // There's no way to know how long to wait after a navigation to make sure
+        // that SignalR is done updating the DOM. So just catch StaleElementReferenceException
+        // and retry.
+        // CONSIDER: Limit number or time duration of retries.
+        protected void WaitForSignalR(Action assertion)
+        {
+            bool isStale;
+            do
+            {
+                try
+                {
+                    isStale = false;
+                    assertion();
+                }
+                catch (StaleElementReferenceException)
+                {
+                    isStale = true;
+                }
+            } while (isStale);
+        }
 
         protected virtual void Dispose(bool disposing)
         {
