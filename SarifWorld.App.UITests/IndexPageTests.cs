@@ -21,11 +21,10 @@ namespace SarifWorld.App
             Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(ApplicationUri);
 
-            WaitForSignalR(() =>
-            {
-                IWebElement pageTitle = Driver.FindElement(By.ClassName("page-title"));
-                pageTitle.Text.Trim().Should().Be(expectedTitle);
-            });
+            WaitFor(
+                By.ClassName("page-title"),
+                pageTitle => pageTitle.Text.Trim() == expectedTitle
+            );
         }
 
         [Fact]
@@ -40,11 +39,10 @@ namespace SarifWorld.App
             Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(ApplicationUri);
 
-            WaitForSignalR(() =>
-            {
-                IWebElement pageTitle = Driver.FindElement(By.ClassName("page-title"));
-                pageTitle.Text.Trim().Should().Be(expectedTitle);
-            });
+            WaitFor(
+                By.ClassName("page-title"),
+                pageTitle => pageTitle.Text.Trim() == expectedTitle
+            );
         }
 
 
@@ -62,11 +60,10 @@ namespace SarifWorld.App
             Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(expectedUri);
 
-            WaitForSignalR(() =>
-            {
-                IWebElement pageTitle = Driver.FindElement(By.ClassName("page-title"));
-                pageTitle.Text.Trim().Should().Be(expectedTitle);
-            });
+            WaitFor(
+                By.ClassName("page-title"),
+                pageTitle => pageTitle.Text.Trim() == expectedTitle
+            );
         }
     }
 }

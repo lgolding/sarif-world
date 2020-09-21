@@ -4,6 +4,7 @@ using Microsoft.Json.Pointer;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace SarifWorld.App
 {
@@ -12,6 +13,10 @@ namespace SarifWorld.App
         // This is a single page application; the page title always stays the same
         // (until the day comes when we write script to update it when we navigate).
         protected const string WebPageTitle = "SARIF";
+
+        // The maximum amount of time to wait for UI updates sent through SignalR
+        // to complete.
+        private static readonly TimeSpan DomUpdateTimeout = TimeSpan.FromSeconds(5);
 
         private bool disposed;
 
@@ -31,24 +36,28 @@ namespace SarifWorld.App
 
         protected string ApplicationUri { get; }
 
-        // Perform an action once SignalR has finished updating the DOM. There's now way to know
-        // when the DOM is done updating, so just catch StaleElementReferenceException and retry.
-        // CONSIDER: Limit number or time duration of retries.
-        protected void WaitForSignalR(Action assertion)
+        protected IWebElement WaitFor(By locator, Func<IWebElement, bool> condition)
         {
-            bool isStale;
-            do
+            var wait = new WebDriverWait(Driver, DomUpdateTimeout);
+            return wait.Until(driver => ElementSatisfiesCondition(driver, locator, condition));
+        }
+
+        private static IWebElement ElementSatisfiesCondition(IWebDriver driver, By locator, Func<IWebElement, bool> condition)
+        {
+            IWebElement element = driver.FindElement(locator);
+            try
             {
-                try
+                if (!condition(element))
                 {
-                    isStale = false;
-                    assertion();
+                    element = null;
                 }
-                catch (StaleElementReferenceException)
-                {
-                    isStale = true;
-                }
-            } while (isStale);
+            }
+            catch (StaleElementReferenceException)
+            {
+                element = null;
+            }
+
+            return element;
         }
 
         #region IDispose
