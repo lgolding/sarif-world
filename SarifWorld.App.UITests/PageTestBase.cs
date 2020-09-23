@@ -18,6 +18,8 @@ namespace SarifWorld.App
         // to complete.
         private static readonly TimeSpan DomUpdateTimeout = TimeSpan.FromSeconds(5);
 
+        private readonly WebDriverWait wait;
+
         private bool disposed;
 
         protected PageTestBase(string relativeUri = null)
@@ -32,6 +34,8 @@ namespace SarifWorld.App
                 : ApplicationUri;
 
             Driver = new ChromeDriver(service);
+            this.wait = new WebDriverWait(Driver, DomUpdateTimeout);
+
             Driver.Navigate().GoToUrl(PageUri);
         }
 
@@ -43,7 +47,6 @@ namespace SarifWorld.App
 
         protected IWebElement WaitFor(By locator, Func<IWebElement, bool> condition)
         {
-            var wait = new WebDriverWait(Driver, DomUpdateTimeout);
             return wait.Until(driver => ElementSatisfiesCondition(driver, locator, condition));
         }
 
