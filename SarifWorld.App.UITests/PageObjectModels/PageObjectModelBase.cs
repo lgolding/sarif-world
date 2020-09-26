@@ -11,7 +11,7 @@ namespace SarifWorld.App.PageObjectModels
     {
         // This is a single page application; the page title always stays the same
         // (until the day comes when we write script to update it when we navigate).
-        protected const string WebPageTitle = "SARIF";
+        private const string WebPageTitle = "SARIF";
 
         internal PageObjectModelBase(IWebDriver driver)
         {
