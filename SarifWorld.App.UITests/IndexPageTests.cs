@@ -21,7 +21,7 @@ namespace SarifWorld.App
             string expectedTitle = stringResources["PageTitle"];
 
             indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.Url.Should().Be(indexPage.PageUri);
+            indexPage.ActualUri.Should().Be(indexPage.PageUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
@@ -39,7 +39,7 @@ namespace SarifWorld.App
             Driver.Navigate().Refresh();
 
             indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.Url.Should().Be(indexPage.PageUri);
+            indexPage.ActualUri.Should().Be(indexPage.PageUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
@@ -62,7 +62,7 @@ namespace SarifWorld.App
             validationNavLink.Click();
 
             indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.Url.Should().Be(expectedUri);
+            indexPage.ActualUri.Should().Be(expectedUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }

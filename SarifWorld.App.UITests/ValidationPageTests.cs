@@ -21,7 +21,7 @@ namespace SarifWorld.App
             string expectedTitle = stringResources["PageTitle"];
 
             validationPage.Title.Should().Be(WebPageTitle);
-            validationPage.Url.Should().Be(validationPage.PageUri);
+            validationPage.ActualUri.Should().Be(validationPage.PageUri);
 
             // How can we push the HTML-ness of this statement down into the page object model?
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));

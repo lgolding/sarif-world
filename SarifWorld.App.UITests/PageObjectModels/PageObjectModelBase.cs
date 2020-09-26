@@ -11,25 +11,23 @@ namespace SarifWorld.App.PageObjectModels
         internal PageObjectModelBase(IWebDriver driver, string relativeUri)
         {
             Driver = driver;
-            ApplicationUri = GetApplicationUri();
             PageUri = GetPageUri(relativeUri);
         }
 
         protected IWebDriver Driver { get; }
 
-        protected string ApplicationUri { get; }
-
         public string PageUri { get; }
 
         public string Title => Driver.Title;
 
-        public string Url => Driver.Url;
+        public string ActualUri => Driver.Url;
 
         public void NavigateTo() => Driver.Navigate().GoToUrl(PageUri);
 
         private string GetPageUri(string relativeUri)
         {
-            var builder = new UriBuilder(ApplicationUri);
+            string applicationUri = GetApplicationUri();
+            var builder = new UriBuilder(applicationUri);
             builder.Path += relativeUri;
             return builder.ToString();
         }
