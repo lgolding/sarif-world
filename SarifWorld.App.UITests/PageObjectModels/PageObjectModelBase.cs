@@ -8,11 +8,13 @@ namespace SarifWorld.App.PageObjectModels
 {
     internal abstract class PageObjectModelBase
     {
-        internal PageObjectModelBase(IWebDriver driver, string relativeUri)
+        internal PageObjectModelBase(IWebDriver driver)
         {
             Driver = driver;
-            PageUri = GetPageUri(relativeUri);
+            PageUri = GetPageUri();
         }
+
+        public abstract string RelativeUri { get; }
 
         protected IWebDriver Driver { get; }
 
@@ -24,11 +26,11 @@ namespace SarifWorld.App.PageObjectModels
 
         public void NavigateTo() => Driver.Navigate().GoToUrl(PageUri);
 
-        private string GetPageUri(string relativeUri)
+        private string GetPageUri()
         {
             string applicationUri = GetApplicationUri();
             var builder = new UriBuilder(applicationUri);
-            builder.Path += relativeUri;
+            builder.Path += RelativeUri;
             return builder.ToString();
         }
 
@@ -53,9 +55,11 @@ namespace SarifWorld.App.PageObjectModels
             JToken sslPortToken = sslPortPointer.Evaluate(documentToken);
             var sslPort = (int)sslPortToken;
 
-            var builder = new UriBuilder(applicationUriString);
-            builder.Scheme = ApplicationUriScheme;
-            builder.Port = sslPort;
+            var builder = new UriBuilder(applicationUriString)
+            {
+                Scheme = ApplicationUriScheme,
+                Port = sslPort
+            };
 
             return builder.ToString();
         }

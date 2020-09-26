@@ -58,7 +58,7 @@ namespace SarifWorld.App
             var validationPage = new ValidationPage(Driver);
             string expectedUri = validationPage.PageUri;
 
-            IWebElement validationNavLink = Driver.FindElement(By.CssSelector($"[data-nav-target='{RelativePageUris.Validation}']"));
+            IWebElement validationNavLink = Driver.FindElement(By.CssSelector($"[data-nav-target='{validationPage.RelativeUri}']"));
             validationNavLink.Click();
 
             indexPage.Title.Should().Be(WebPageTitle);
