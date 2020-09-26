@@ -27,7 +27,7 @@ namespace SarifWorld.App.PageObjectModels
 
         public void NavigateTo() => Driver.Navigate().GoToUrl(PageUri);
 
-        protected string GetPageUri(string relativeUri)
+        private string GetPageUri(string relativeUri)
         {
             var builder = new UriBuilder(ApplicationUri);
             builder.Path += relativeUri;
