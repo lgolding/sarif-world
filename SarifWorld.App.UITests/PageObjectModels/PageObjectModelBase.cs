@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using FluentAssertions;
 using Microsoft.Json.Pointer;
@@ -32,7 +33,7 @@ namespace SarifWorld.App.PageObjectModels
         public void NavigateTo()
         {
             Driver.Navigate().GoToUrl(PageUri);
-            PageLoadedSuccessfully().Should().BeTrue();
+            EnsurePageLoaded();
         }
 
         private string GetPageUri()
@@ -73,7 +74,18 @@ namespace SarifWorld.App.PageObjectModels
             return builder.ToString();
         }
 
-        private bool PageLoadedSuccessfully() =>
-            Driver.Url == PageUri && Driver.Title == WebPageTitle;
+        private void EnsurePageLoaded()
+        {
+            bool success = Driver.Url == PageUri && Driver.Title == WebPageTitle;
+            success.Should().BeTrue(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    Resources.NavigationFailed,
+                    PageUri,
+                    Driver.Url,
+                    WebPageTitle,
+                    Driver.Title,
+                    Driver.PageSource));
+        }
     }
 }
