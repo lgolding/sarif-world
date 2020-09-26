@@ -21,7 +21,7 @@ namespace SarifWorld.App
             string expectedTitle = stringResources["PageTitle"];
 
             indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.Url.Should().Be(ApplicationUri);
+            indexPage.Url.Should().Be(indexPage.PageUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
@@ -39,7 +39,7 @@ namespace SarifWorld.App
             Driver.Navigate().Refresh();
 
             indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.Url.Should().Be(ApplicationUri);
+            indexPage.Url.Should().Be(indexPage.PageUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
@@ -54,7 +54,9 @@ namespace SarifWorld.App
 
             var stringResources = new ResourceStrings(typeof(Pages.Validation));
             string expectedTitle = stringResources["PageTitle"];
-            string expectedUri = GetPageUri(RelativePageUris.Validation);
+
+            var validationPage = new ValidationPage(Driver);
+            string expectedUri = validationPage.PageUri;
 
             IWebElement validationNavLink = Driver.FindElement(By.CssSelector($"[data-nav-target='{RelativePageUris.Validation}']"));
             validationNavLink.Click();

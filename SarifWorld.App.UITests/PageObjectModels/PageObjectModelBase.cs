@@ -19,7 +19,7 @@ namespace SarifWorld.App.PageObjectModels
 
         protected string ApplicationUri { get; }
 
-        protected string PageUri { get; }
+        public string PageUri { get; }
 
         public string Title => Driver.Title;
 
