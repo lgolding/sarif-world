@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SarifWorld.App.PageObjectModels;
 using SarifWorld.TestUtilities;
 using SeleniumExtras.WaitHelpers;
@@ -20,9 +19,6 @@ namespace SarifWorld.App
             var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
 
-            indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.ActualUri.Should().Be(indexPage.PageUri);
-
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
 
@@ -37,9 +33,6 @@ namespace SarifWorld.App
             string expectedTitle = stringResources["PageTitle"];
 
             Driver.Navigate().Refresh();
-
-            indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.ActualUri.Should().Be(indexPage.PageUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
@@ -60,9 +53,6 @@ namespace SarifWorld.App
 
             IWebElement validationNavLink = Driver.FindElement(By.CssSelector($"[data-nav-target='{validationPage.RelativeUri}']"));
             validationNavLink.Click();
-
-            indexPage.Title.Should().Be(WebPageTitle);
-            indexPage.ActualUri.Should().Be(expectedUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }

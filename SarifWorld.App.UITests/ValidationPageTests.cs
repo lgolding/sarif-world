@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SarifWorld.App.PageObjectModels;
 using SarifWorld.TestUtilities;
 using SeleniumExtras.WaitHelpers;
@@ -19,9 +18,6 @@ namespace SarifWorld.App
 
             var stringResources = new ResourceStrings(typeof(Pages.Validation));
             string expectedTitle = stringResources["PageTitle"];
-
-            validationPage.Title.Should().Be(WebPageTitle);
-            validationPage.ActualUri.Should().Be(validationPage.PageUri);
 
             // How can we push the HTML-ness of this statement down into the page object model?
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));

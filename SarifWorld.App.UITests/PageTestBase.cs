@@ -7,10 +7,6 @@ namespace SarifWorld.App
 {
     public abstract class PageTestBase : IDisposable
     {
-        // This is a single page application; the page title always stays the same
-        // (until the day comes when we write script to update it when we navigate).
-        protected const string WebPageTitle = "SARIF";
-
         // The maximum amount of time to wait for UI updates sent through SignalR
         // to complete.
         private static readonly TimeSpan DomUpdateTimeout = TimeSpan.FromSeconds(5);

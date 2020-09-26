@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using FluentAssertions;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
@@ -8,6 +9,10 @@ namespace SarifWorld.App.PageObjectModels
 {
     internal abstract class PageObjectModelBase
     {
+        // This is a single page application; the page title always stays the same
+        // (until the day comes when we write script to update it when we navigate).
+        protected const string WebPageTitle = "SARIF";
+
         internal PageObjectModelBase(IWebDriver driver)
         {
             Driver = driver;
@@ -24,7 +29,11 @@ namespace SarifWorld.App.PageObjectModels
 
         public string ActualUri => Driver.Url;
 
-        public void NavigateTo() => Driver.Navigate().GoToUrl(PageUri);
+        public void NavigateTo()
+        {
+            Driver.Navigate().GoToUrl(PageUri);
+            PageLoadedSuccessfully().Should().BeTrue();
+        }
 
         private string GetPageUri()
         {
@@ -63,5 +72,8 @@ namespace SarifWorld.App.PageObjectModels
 
             return builder.ToString();
         }
+
+        private bool PageLoadedSuccessfully() =>
+            Driver.Url == PageUri && Driver.Title == WebPageTitle;
     }
 }
