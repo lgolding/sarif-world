@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
 using SarifWorld.TestUtilities;
+using SeleniumExtras.WaitHelpers;
 using Xunit;
 
 namespace SarifWorld.App
@@ -18,10 +19,7 @@ namespace SarifWorld.App
             Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(ApplicationUri);
 
-            WaitFor(
-                By.ClassName("page-title"),
-                pageTitle => pageTitle.Text.Trim() == expectedTitle
-            );
+            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
 
         [Fact]
@@ -36,10 +34,7 @@ namespace SarifWorld.App
             Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(ApplicationUri);
 
-            WaitFor(
-                By.ClassName("page-title"),
-                pageTitle => pageTitle.Text.Trim() == expectedTitle
-            );
+            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
 
 
@@ -57,10 +52,7 @@ namespace SarifWorld.App
             Driver.Title.Should().Be(WebPageTitle);
             Driver.Url.Should().Be(expectedUri);
 
-            WaitFor(
-                By.ClassName("page-title"),
-                pageTitle => pageTitle.Text.Trim() == expectedTitle
-            );
+            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
     }
 }
