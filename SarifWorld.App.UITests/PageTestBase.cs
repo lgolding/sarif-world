@@ -45,29 +45,6 @@ namespace SarifWorld.App
 
         protected string PageUri { get; }
 
-        protected IWebElement WaitFor(By locator, Func<IWebElement, bool> condition)
-        {
-            return Wait.Until(driver => ElementSatisfiesCondition(driver, locator, condition));
-        }
-
-        private static IWebElement ElementSatisfiesCondition(IWebDriver driver, By locator, Func<IWebElement, bool> condition)
-        {
-            IWebElement element = driver.FindElement(locator);
-            try
-            {
-                if (!condition(element))
-                {
-                    element = null;
-                }
-            }
-            catch (StaleElementReferenceException)
-            {
-                element = null;
-            }
-
-            return element;
-        }
-
         protected string GetPageUri(string relativeUri)
         {
             var builder = new UriBuilder(ApplicationUri);
