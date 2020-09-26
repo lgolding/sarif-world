@@ -17,6 +17,7 @@ namespace SarifWorld.App
         public void ValidationPage_ShouldHaveCorrectTitleAndUrl()
         {
             var validationPage = new ValidationPage(Driver);
+            validationPage.NavigateTo();
 
             var stringResources = new ResourceStrings(typeof(Pages.Validation));
             string expectedTitle = stringResources["PageTitle"];

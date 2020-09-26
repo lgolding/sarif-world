@@ -15,6 +15,7 @@ namespace SarifWorld.App
         public void IndexPage_ShouldHaveCorrectTitleAndUrl()
         {
             var indexPage = new IndexPage(Driver);
+            indexPage.NavigateTo();
 
             var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
@@ -30,6 +31,7 @@ namespace SarifWorld.App
         public void IndexPage_CanRefresh()
         {
             var indexPage = new IndexPage(Driver);
+            indexPage.NavigateTo();
 
             var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
@@ -48,6 +50,7 @@ namespace SarifWorld.App
         public void IndexPage_CanNavigateToValidationPage()
         {
             var indexPage = new IndexPage(Driver);
+            indexPage.NavigateTo();
 
             var stringResources = new ResourceStrings(typeof(Pages.Validation));
             string expectedTitle = stringResources["PageTitle"];

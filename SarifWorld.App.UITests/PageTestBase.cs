@@ -35,8 +35,6 @@ namespace SarifWorld.App
 
             Driver = new ChromeDriver(service);
             this.Wait = new WebDriverWait(Driver, DomUpdateTimeout);
-
-            Driver.Navigate().GoToUrl(PageUri);
         }
 
         protected IWebDriver Driver { get; private set; }

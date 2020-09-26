@@ -4,6 +4,6 @@ namespace SarifWorld.App.PageObjectModels
 {
     internal class ValidationPage : PageObjectModelBase
     {
-        internal ValidationPage(IWebDriver driver) : base(driver, "Validation") { }
+        internal ValidationPage(IWebDriver driver) : base(driver, "validation") { }
     }
 }
