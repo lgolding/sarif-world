@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using OpenQA.Selenium;
+using SarifWorld.App.PageObjectModels;
 using SarifWorld.TestUtilities;
 using SeleniumExtras.WaitHelpers;
 using Xunit;
@@ -15,11 +16,13 @@ namespace SarifWorld.App
         [Trait(TestTraits.Category, TestCategories.Smoke)]
         public void ValidationPage_ShouldHaveCorrectTitleAndUrl()
         {
+            var validationPage = new ValidationPage(Driver);
+
             var stringResources = new ResourceStrings(typeof(Pages.Validation));
             string expectedTitle = stringResources["PageTitle"];
 
-            Driver.Title.Should().Be(WebPageTitle);
-            Driver.Url.Should().Be(PageUri);
+            validationPage.Title.Should().Be(WebPageTitle);
+            validationPage.Url.Should().Be(PageUri);
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
