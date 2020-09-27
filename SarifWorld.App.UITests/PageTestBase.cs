@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using SarifWorld.TestUtilities;
 
 namespace SarifWorld.App
 {
@@ -11,6 +12,8 @@ namespace SarifWorld.App
         // The maximum amount of time to wait for UI updates sent through SignalR
         // to complete.
         private static readonly TimeSpan DomUpdateTimeout = TimeSpan.FromSeconds(5);
+
+        protected static ResourceStrings StringResources => new ResourceStrings(typeof(T));
 
         protected readonly WebDriverWait Wait;
 

@@ -17,8 +17,7 @@ namespace SarifWorld.App
             var validationPage = new ValidationPage(Driver);
             validationPage.NavigateTo();
 
-            var stringResources = new ResourceStrings(typeof(Pages.Validation));
-            string expectedTitle = stringResources["PageTitle"];
+            string expectedTitle = StringResources["PageTitle"];
 
             // How can we push the HTML-ness of this statement down into the page object model?
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));

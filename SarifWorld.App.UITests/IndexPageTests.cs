@@ -17,8 +17,7 @@ namespace SarifWorld.App
             var indexPage = new IndexPage(Driver);
             indexPage.NavigateTo();
 
-            var stringResources = new ResourceStrings(typeof(Pages.Index));
-            string expectedTitle = stringResources["PageTitle"];
+            string expectedTitle = StringResources["PageTitle"];
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
@@ -33,8 +32,7 @@ namespace SarifWorld.App
             Driver.Navigate().Refresh();
             indexPage.EnsurePageLoaded();
 
-            var stringResources = new ResourceStrings(typeof(Pages.Index));
-            string expectedTitle = stringResources["PageTitle"];
+            string expectedTitle = StringResources["PageTitle"];
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
@@ -49,8 +47,7 @@ namespace SarifWorld.App
             ValidationPage validationPage = indexPage.ClickValidationNavLink();
             validationPage.EnsurePageLoaded();
 
-            var stringResources = new ResourceStrings(typeof(Pages.Validation));
-            string expectedTitle = stringResources["PageTitle"];
+            string expectedTitle = StringResources["PageTitle"];
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
