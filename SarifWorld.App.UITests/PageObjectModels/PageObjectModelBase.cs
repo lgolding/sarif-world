@@ -22,18 +22,32 @@ namespace SarifWorld.App.PageObjectModels
 
         public abstract string RelativeUri { get; }
 
-        protected IWebDriver Driver { get; }
-
         public string PageUri { get; }
 
         public string Title => Driver.Title;
 
         public string ActualUri => Driver.Url;
 
+        protected IWebDriver Driver { get; }
+
         public void NavigateTo()
         {
             Driver.Navigate().GoToUrl(PageUri);
             EnsurePageLoaded();
+        }
+
+        public void EnsurePageLoaded()
+        {
+            bool success = Driver.Url == PageUri && Driver.Title == WebPageTitle;
+            success.Should().BeTrue(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    Resources.NavigationFailed,
+                    PageUri,
+                    Driver.Url,
+                    WebPageTitle,
+                    Driver.Title,
+                    Driver.PageSource));
         }
 
         private string GetPageUri()
@@ -72,20 +86,6 @@ namespace SarifWorld.App.PageObjectModels
             };
 
             return builder.ToString();
-        }
-
-        private void EnsurePageLoaded()
-        {
-            bool success = Driver.Url == PageUri && Driver.Title == WebPageTitle;
-            success.Should().BeTrue(
-                string.Format(
-                    CultureInfo.CurrentCulture,
-                    Resources.NavigationFailed,
-                    PageUri,
-                    Driver.Url,
-                    WebPageTitle,
-                    Driver.Title,
-                    Driver.PageSource));
         }
     }
 }

@@ -45,14 +45,11 @@ namespace SarifWorld.App
             var indexPage = new IndexPage(Driver);
             indexPage.NavigateTo();
 
+            ValidationPage validationPage = indexPage.ClickValidationNavLink();
+            validationPage.EnsurePageLoaded();
+
             var stringResources = new ResourceStrings(typeof(Pages.Validation));
             string expectedTitle = stringResources["PageTitle"];
-
-            var validationPage = new ValidationPage(Driver);
-            string expectedUri = validationPage.PageUri;
-
-            IWebElement validationNavLink = Driver.FindElement(By.CssSelector($"[data-nav-target='{validationPage.RelativeUri}']"));
-            validationNavLink.Click();
 
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
