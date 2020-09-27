@@ -12,7 +12,7 @@ using SeleniumExtras.WaitHelpers;
 
 namespace SarifWorld.App.PageObjectModels
 {
-    internal abstract class PageObjectModel<T> where T: ComponentBase
+    internal abstract class Page<T> where T: ComponentBase
     {
         // This is a single page application; the page title always stays the same
         // (until the day comes when we write script to update it when we navigate).
@@ -26,7 +26,7 @@ namespace SarifWorld.App.PageObjectModels
 
         protected static ResourceStrings ResourceStrings => new ResourceStrings(typeof(T));
 
-        internal PageObjectModel(IWebDriver driver)
+        internal Page(IWebDriver driver)
         {
             Driver = driver;
             PageUri = GetPageUri();

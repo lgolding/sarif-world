@@ -3,7 +3,7 @@ using SarifWorld.App.Pages;
 
 namespace SarifWorld.App.PageObjectModels
 {
-    internal class ValidationPage : PageObjectModel<Validation>
+    internal class ValidationPage : Page<Validation>
     {
         internal ValidationPage(IWebDriver driver) : base(driver) { }
 
