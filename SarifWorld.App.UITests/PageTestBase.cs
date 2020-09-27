@@ -1,11 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Components;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 namespace SarifWorld.App
 {
-    public abstract class PageTestBase : IDisposable
+    public abstract class PageTestBase<T> : IDisposable where T : ComponentBase
     {
         // The maximum amount of time to wait for UI updates sent through SignalR
         // to complete.

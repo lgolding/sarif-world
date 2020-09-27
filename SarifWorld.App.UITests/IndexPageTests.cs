@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SarifWorld.App.PageObjectModels;
+using SarifWorld.App.Pages;
 using SarifWorld.TestUtilities;
 using SeleniumExtras.WaitHelpers;
 using Xunit;
@@ -7,7 +8,7 @@ using Xunit;
 namespace SarifWorld.App
 {
     [Trait(TestTraits.Category, TestCategories.UITest)]
-    public class IndexPageTests : PageTestBase
+    public class IndexPageTests : PageTestBase<Index>
     {
         [Fact]
         [Trait(TestTraits.Category, TestCategories.Smoke)]
