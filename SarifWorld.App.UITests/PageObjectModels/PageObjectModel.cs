@@ -22,13 +22,15 @@ namespace SarifWorld.App.PageObjectModels
         // to complete.
         private static readonly TimeSpan DomUpdateTimeout = TimeSpan.FromSeconds(5);
 
+        private readonly WebDriverWait wait;
+
         protected static ResourceStrings ResourceStrings => new ResourceStrings(typeof(T));
 
         internal PageObjectModel(IWebDriver driver)
         {
             Driver = driver;
             PageUri = GetPageUri();
-            Wait = new WebDriverWait(Driver, DomUpdateTimeout);
+            this.wait = new WebDriverWait(Driver, DomUpdateTimeout);
         }
 
         public abstract string RelativeUri { get; }
@@ -40,8 +42,6 @@ namespace SarifWorld.App.PageObjectModels
         public string ActualUri => Driver.Url;
 
         protected IWebDriver Driver { get; }
-
-        protected readonly WebDriverWait Wait;
 
         public void NavigateTo()
         {
@@ -66,7 +66,7 @@ namespace SarifWorld.App.PageObjectModels
         public void WaitForExpectedPageTitle()
         {
             string expectedTitle = ResourceStrings["PageTitle"];
-            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
+            this.wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
 
         private string GetPageUri()
