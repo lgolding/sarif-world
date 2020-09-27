@@ -1,8 +1,9 @@
 ﻿using OpenQA.Selenium;
+using SarifWorld.App.Pages;
 
 namespace SarifWorld.App.PageObjectModels
 {
-    internal class IndexPage : PageObjectModelBase
+    internal class IndexPage : PageObjectModelBase<Index>
     {
         internal IndexPage(IWebDriver driver) : base(driver) { }
 

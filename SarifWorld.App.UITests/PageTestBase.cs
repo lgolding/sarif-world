@@ -1,22 +1,11 @@
 ﻿using System;
-using Microsoft.AspNetCore.Components;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
-using SarifWorld.TestUtilities;
 
 namespace SarifWorld.App
 {
-    public abstract class PageTestBase<T> : IDisposable where T : ComponentBase
+    public abstract class PageTestBase : IDisposable
     {
-        // The maximum amount of time to wait for UI updates sent through SignalR
-        // to complete.
-        private static readonly TimeSpan DomUpdateTimeout = TimeSpan.FromSeconds(5);
-
-        protected static ResourceStrings StringResources => new ResourceStrings(typeof(T));
-
-        protected readonly WebDriverWait Wait;
-
         private bool disposed;
 
         protected PageTestBase()
@@ -26,7 +15,6 @@ namespace SarifWorld.App
             service.EnableVerboseLogging = true;
 
             Driver = new ChromeDriver(service);
-            this.Wait = new WebDriverWait(Driver, DomUpdateTimeout);
         }
 
         protected IWebDriver Driver { get; private set; }

@@ -1,8 +1,9 @@
 ﻿using OpenQA.Selenium;
+using SarifWorld.App.Pages;
 
 namespace SarifWorld.App.PageObjectModels
 {
-    internal class ValidationPage : PageObjectModelBase
+    internal class ValidationPage : PageObjectModelBase<Validation>
     {
         internal ValidationPage(IWebDriver driver) : base(driver) { }
 

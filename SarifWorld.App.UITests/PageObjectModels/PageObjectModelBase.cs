@@ -2,22 +2,33 @@
 using System.Globalization;
 using System.IO;
 using FluentAssertions;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Json.Pointer;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SarifWorld.TestUtilities;
+using SeleniumExtras.WaitHelpers;
 
 namespace SarifWorld.App.PageObjectModels
 {
-    internal abstract class PageObjectModelBase
+    internal abstract class PageObjectModelBase<T> where T: ComponentBase
     {
         // This is a single page application; the page title always stays the same
         // (until the day comes when we write script to update it when we navigate).
         private const string WebPageTitle = "SARIF";
 
+        // The maximum amount of time to wait for UI updates sent through SignalR
+        // to complete.
+        private static readonly TimeSpan DomUpdateTimeout = TimeSpan.FromSeconds(5);
+
+        protected static ResourceStrings ResourceStrings => new ResourceStrings(typeof(T));
+
         internal PageObjectModelBase(IWebDriver driver)
         {
             Driver = driver;
             PageUri = GetPageUri();
+            Wait = new WebDriverWait(Driver, DomUpdateTimeout);
         }
 
         public abstract string RelativeUri { get; }
@@ -29,6 +40,8 @@ namespace SarifWorld.App.PageObjectModels
         public string ActualUri => Driver.Url;
 
         protected IWebDriver Driver { get; }
+
+        protected readonly WebDriverWait Wait;
 
         public void NavigateTo()
         {
@@ -48,6 +61,12 @@ namespace SarifWorld.App.PageObjectModels
                     WebPageTitle,
                     Driver.Title,
                     Driver.PageSource));
+        }
+
+        public void WaitForExpectedPageTitle()
+        {
+            string expectedTitle = ResourceStrings["PageTitle"];
+            Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
 
         private string GetPageUri()
