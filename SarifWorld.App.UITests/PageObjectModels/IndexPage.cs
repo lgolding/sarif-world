@@ -3,7 +3,7 @@ using SarifWorld.App.Pages;
 
 namespace SarifWorld.App.PageObjectModels
 {
-    internal class IndexPage : PageObjectModelBase<Index>
+    internal class IndexPage : PageObjectModel<Index>
     {
         internal IndexPage(IWebDriver driver) : base(driver) { }
 
