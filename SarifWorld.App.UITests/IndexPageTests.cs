@@ -29,14 +29,14 @@ namespace SarifWorld.App
             var indexPage = new IndexPage(Driver);
             indexPage.NavigateTo();
 
+            Driver.Navigate().Refresh();
+            indexPage.EnsurePageLoaded();
+
             var stringResources = new ResourceStrings(typeof(Pages.Index));
             string expectedTitle = stringResources["PageTitle"];
 
-            Driver.Navigate().Refresh();
-
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
-
 
         [Fact]
         [Trait(TestTraits.Category, TestCategories.Smoke)]
