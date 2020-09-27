@@ -19,7 +19,6 @@ namespace SarifWorld.App
 
             string expectedTitle = StringResources["PageTitle"];
 
-            // How can we push the HTML-ness of this statement down into the page object model?
             Wait.Until(ExpectedConditions.TextToBePresentInElementLocated(By.ClassName("page-title"), expectedTitle));
         }
     }
