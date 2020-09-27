@@ -25,8 +25,8 @@ namespace SarifWorld.App
             indexPage.NavigateTo();
 
             Driver.Navigate().Refresh();
-            indexPage.EnsurePageLoaded();
 
+            indexPage.EnsurePageLoaded();
             indexPage.WaitForExpectedPageTitle();
         }
 
@@ -36,8 +36,10 @@ namespace SarifWorld.App
         {
             var indexPage = new IndexPage(Driver);
             indexPage.NavigateTo();
+            indexPage.WaitForExpectedPageTitle();
 
             ValidationPage validationPage = indexPage.ClickValidationNavLink();
+
             validationPage.EnsurePageLoaded();
             validationPage.WaitForExpectedPageTitle();
         }
